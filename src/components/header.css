@@ -1,0 +1,12 @@
+.top-bar-container{
+    background: #1b3578;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 68px;
+    padding: 0px 10vw;
+}
+
+.top-bar-container > img {
+    height: 16px;
+}
