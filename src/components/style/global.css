@@ -5,7 +5,7 @@
 @import "tech.css";
 @import "team.css";
 @import "footer.css";
-
+@import "signInUp.css";
 button {
     cursor: pointer;
 }

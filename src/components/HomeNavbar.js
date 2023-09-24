@@ -22,7 +22,7 @@ const HomeNavbar = () => {
         </a>
       </div>
 
-      <a href='/'>
+      <a href='/signinup'>
         <button className='btnRedirectLoginPage'>
           Login
         </button>
