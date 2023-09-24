@@ -1,0 +1,22 @@
+@import "header.css";
+@import "homeNavbar.css";
+@import "hero.css";
+@import "aboutUs.css";
+@import "tech.css";
+@import "team.css";
+@import "footer.css";
+
+button {
+    cursor: pointer;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+* {
+    font-family: 'Open Sans', sans-serif;
+}

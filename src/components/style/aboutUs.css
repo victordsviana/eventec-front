@@ -1,0 +1,30 @@
+.slotContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2%;
+
+}
+
+.aboutUsContainer {
+    margin: 115px 0px;
+}
+
+.aboutUsBtnsBox{
+    margin-top: 65px;
+    gap: 40px;
+    display: flex;
+    justify-content: center;
+
+    .getStartedBtn{
+        padding: 15px 10px;
+        background: none;
+        border: 1px solid black;
+    }
+    
+    .learnMoreBtn{
+        border: none;
+        background: none;
+        font-weight: 700;
+    }
+}

@@ -1,11 +1,20 @@
-import MyAccount from './pages/MyAccount';
-import HeaderEventec from './components/HeaderEventec';
+import AboutUs from './components/AboutUs';
+import Footer from './components/Footer';
+import Hero from './components/Hero';
+import HomeNavbar from './components/HomeNavbar';
+import Team from './components/Team';
+import TechGrid from './components/TechGrid';
 
 function App() {
   return (
     <div className="App">
-      <HeaderEventec/>
-      <MyAccount/>
+      <HomeNavbar/>
+       <Hero/>
+       <AboutUs/>
+      <TechGrid/>
+      <Team/>
+      <Footer/>
+       
     </div>
   );
 }

@@ -1,0 +1,45 @@
+.heroMainContent{
+    display: flex;
+    padding: 0px 5vw;
+    border-bottom: 1px solid black;
+
+    .heroMessage{
+        width: 40%;
+        padding: 12% 1%;
+        display: flex;
+        flex-direction: column;
+        text-align: initial;
+        > h1 {
+            word-wrap: break-word;
+            font-size: 72px;
+        }
+    }
+    .animatedImages{
+        width: 60%;
+        display: grid;
+        grid-template-columns: 0.3fr 0.3fr;
+        justify-content: center;
+    }
+
+    .heroBtns {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 20px;
+
+        .btnRedirectLoginPage:nth-child(2) {
+            background: white;
+            border: 1px solid black;
+            color: black;
+          }
+
+        .btnRedirectLoginPage{
+            width: fit-content;
+            font-weight: 600;
+            padding: 15px 10px;
+        }
+    }
+
+}
+
+  

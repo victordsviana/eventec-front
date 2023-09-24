@@ -1,0 +1,19 @@
+.cardImage{
+    > img {
+        height: 100px;
+    }
+}
+
+.membersCard {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 100px;
+}
+
+.cardName{
+    font-weight: 700;
+}
+
+.TeamContainer {
+    margin: 10%;
+}

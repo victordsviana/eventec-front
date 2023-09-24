@@ -1,0 +1,50 @@
+.homeNavbar {
+    display: flex;
+    border-bottom: 1px solid #B40611;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 99999999999999;
+    overflow: hidden;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.anchorItems {
+    display: flex;
+    gap: 30px;
+
+    > a{
+        font-weight: 400;
+        color: black;
+        text-decoration: none;
+    }
+}
+
+.logoNavbar {
+    background: black;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    > img {
+        height: 16px;
+        cursor: pointer;
+    }
+
+}
+.btnRedirectLoginPage{
+    background: black;
+    color: white;
+    padding: 10px;
+    width: 100px;
+    border: none;
+    font-weight: 800;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #B40611;
+        color: white;
+      }
+}
