@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Footer from '../components/Footer';
-import LogoImg from '../static/Logo.svg'
+import LogoImg from '../static/Logo.svg';
+import { useNavigate } from 'react-router-dom';
 
 const SignInUp = () => {
+  const navigate = useNavigate();
   const [action, setAction] = useState('Cadastrar');
-  const [nome, setNome] = useState('');
+  const [userName, setUserName] = useState('');
   const [cpf, setCpf] = useState('');
   const [emailInstitucional, setEmailInstitucional] = useState('');
   const [ra, setRA] = useState('');
@@ -13,10 +16,48 @@ const SignInUp = () => {
   const [instituicao, setInstituicao] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [userType, setUserType] = useState('aluno');
+  const [userType, setUserType] = useState('usuarioComum');
+  const [unidade, setUnidade] = useState('');
+  const [curso, setCurso] = useState('');
 
   const handleUserTypeChange = (event) => {
     setUserType(event.target.value);
+  };
+
+  const handleFormSubmit = async () => {
+    if (action === 'Cadastrar') {
+      try {
+        const response = await axios.post('http://localhost:8080/api/users/create', {
+          userName,
+          email,
+          password,
+          userType,
+          cpf,
+          emailInstitucional,
+          ra,
+          semestre,
+          turno,
+          instituicao,
+          unidade,
+      });
+        console.log('Registration Successful', response.data);
+      } catch (error) {
+        console.error('There was an error registering!', error);
+      }
+    } else if (action === 'Login') {
+      try {
+        const response = await axios.post('http://localhost:8080/login', {
+          email,
+          password,
+        });
+        console.log('Login Successful', response.data);
+
+        // Redirect to the desired page on successful login
+        navigate('/MyAccount');
+      } catch (error) {
+        console.error('There was an error logging in!', error);
+      }
+    }
   };
 
   return (
@@ -45,7 +86,7 @@ const SignInUp = () => {
               checked={userType === 'usuarioComum'}
               onChange={handleUserTypeChange}
             />
-            Usuário Comum
+            Usuário Comum*
           </label>
           <label>
             <input
@@ -69,8 +110,9 @@ const SignInUp = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
+
               <div className="input">
-                <label htmlFor="password">Senha</label>
+                <label htmlFor="password">Senha*</label>
                 <input
                   type="password"
                   id="password"
@@ -82,25 +124,57 @@ const SignInUp = () => {
           ) : (
             <>
               <div className="input">
-                <label htmlFor="nome">Nome*</label>
+                <label htmlFor="userName">Nome*</label>
                 <input
                   type="text"
-                  id="nome"
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
+                  id="userName"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
                 />
               </div>
               <div className="input">
-                <label htmlFor="emailInstitucional">E-mail Institucional*</label>
+                <label htmlFor="email">E-mail*</label>
                 <input
                   type="email"
-                  id="emailInstitucional"
-                  value={emailInstitucional}
-                  onChange={(e) => setEmailInstitucional(e.target.value)}
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
+
+              <div className="input">
+                <label htmlFor="email">CPF*</label>
+                <input
+                  type="number"
+                  id="cpf"
+                  value={cpf}
+                  onChange={(e) => setCpf(e.target.value)}
+                />
+              </div>
+
+              <div className="input">
+                <label htmlFor="password">Senha*</label>
+                <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+
               {userType === 'aluno' && (
                 <>
+
+                  <div className="input">
+                    <label htmlFor="emailInstitucional">E-mail Instituição*</label>
+                    <input
+                      type="text"
+                      id="emailInstitucional"
+                      value={emailInstitucional}
+                      onChange={(e) => setEmailInstitucional(e.target.value)}
+                    />
+                  </div>
+
                   <div className="input">
                     <label htmlFor="ra">RA*</label>
                     <input
@@ -110,10 +184,11 @@ const SignInUp = () => {
                       onChange={(e) => setRA(e.target.value)}
                     />
                   </div>
+
                   <div className="input">
                     <label htmlFor="semestre">Semestre*</label>
                     <input
-                      type="text"
+                      type="number"
                       id="semestre"
                       value={semestre}
                       onChange={(e) => setSemestre(e.target.value)}
@@ -129,27 +204,47 @@ const SignInUp = () => {
                     />
                   </div>
                   <div className="input">
+                    <label htmlFor="unidade">Instituição de Ensino*</label>
+                    <select type="text"
+                      id="unidade"
+                      value={unidade}
+                      onChange={(e) => setUnidade(e.target.value)}>
+                      <option value={unidade}>Fatec São Bernardo do Campo</option>
+                      <option value={unidade}>Fatec Diadema</option>
+                    </select>
+                  </div>
+
+                  <div className="input">
+                    <label htmlFor="curso">Curso*</label>
+                    <select type="text"
+                      id="curso"
+                      value={curso}
+                      onChange={(e) => setCurso(e.target.value)}>
+                      <option value={curso}>Desenvolvimento de Software</option>
+                      <option value={curso}>Gestão da Produção Industrial</option>
+                    </select>
+                  </div>
+                </>
+              )}
+              {userType === 'professor' && (
+
+                <><div className="input">
                     <label htmlFor="instituicao">Instituição de Ensino*</label>
                     <input
                       type="text"
                       id="instituicao"
                       value={instituicao}
-                      onChange={(e) => setInstituicao(e.target.value)}
-                    />
-                  </div>
-                </>
+                      onChange={(e) => setInstituicao(e.target.value)} />
+                  </div><div className="input">
+                      <label htmlFor="emailInstitucional">E-mail Instituição*</label>
+                      <input
+                        type="text"
+                        id="emailInstitucional"
+                        value={emailInstitucional}
+                        onChange={(e) => setEmailInstitucional(e.target.value)} />
+                    </div></>
               )}
-              {userType === 'professor' && (
-                <div className="input">
-                  <label htmlFor="instituicao">Instituição de Ensino*</label>
-                  <input
-                    type="text"
-                    id="instituicao"
-                    value={instituicao}
-                    onChange={(e) => setInstituicao(e.target.value)}
-                  />
-                </div>
-              )}
+
             </>
           )}
           <div className="forgotPassword">
@@ -158,13 +253,26 @@ const SignInUp = () => {
           <div className="submit-container">
             <div
               className={action === 'Login' ? 'submit gray' : 'submit'}
-              onClick={() => setAction('Cadastrar')}
+              onClick={() => {
+                if (action === 'Cadastrar') {
+                  handleFormSubmit();
+                } else {
+                  setAction('Cadastrar');
+                }
+              }}
             >
               Cadastrar
+
             </div>
             <div
               className={action === 'Cadastrar' ? 'submit gray' : 'submit'}
-              onClick={() => setAction('Login')}
+              onClick={() => {
+                if (action === 'Login') {
+                  handleFormSubmit();
+                } else {
+                  setAction('Login');
+                }
+              }}
             >
               Entrar
             </div>

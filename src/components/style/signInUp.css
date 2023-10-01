@@ -57,7 +57,7 @@
         font-weight: 700;
     }
 
-    > input {
+    > input, >select {
         width: 100%;
         height: 100%;
     }

@@ -10,7 +10,7 @@ const MyAccount = () => {
   useEffect(() => {
     const consult = async () => {
       try {
-        const answer = await fetch("http://localhost:8080/myAccount")
+        const answer = await fetch("http://localhost:8080/api/users/myAccount")
         if (!answer.ok) {
           throw new Error();
         }
@@ -35,8 +35,8 @@ const MyAccount = () => {
     return (
       <><div className='myAccountBox myAccountContainer'>
         <div>
-          <h1>Quase lá, {userInfo.userName}! </h1>
-          <h3>Conclua o seu cadastro.</h3>
+          <h1>Olá, {userInfo.userName}! </h1>
+          <h3>Minha conta.</h3>
         </div>
         <form className='formContainer'>
           <label>Nome:</label>
@@ -46,7 +46,7 @@ const MyAccount = () => {
           <input type="text" value={userInfo.email} disabled />
         </form>
 
-      <CompleteAccount />
+      {/* <CompleteAccount /> */}
       </div>
       </>
 
