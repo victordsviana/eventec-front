@@ -44,9 +44,31 @@ const MyAccount = () => {
 
           <label>E-Mail:</label>
           <input type="text" value={userInfo.email} disabled />
+
+          <label>CPF:</label>
+          <input type="text" value={userInfo.cpf} disabled />
+
+          <label>E-Mail Institucional:</label>
+          <input type="text" value={userInfo.emailInstitucional} disabled />
+
+          <label>RA:</label>
+          <input type="text" value={userInfo.ra} disabled />
+
+          <label>Semestre:</label>
+          <input type="text" value={userInfo.email} disabled />
+
+          <label>Instituição de Ensino:</label>
+          <input type="text" value={userInfo.unidade} disabled />
+
+          <label>Curso:</label>
+          <input type="text" value={userInfo.curso} disabled />
+
+          <label>Senha:</label>
+          <input type="password" value={userInfo.password} disabled />
         </form>
 
-      {/* <CompleteAccount /> */}
+        <button type='submit' className='deleteAccountBtn'>EXCLUIR CONTA</button>
+
       </div>
       </>
 

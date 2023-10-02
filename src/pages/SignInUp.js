@@ -36,7 +36,7 @@ const SignInUp = () => {
           emailInstitucional,
           ra,
           semestre,
-          turno,
+          curso,
           instituicao,
           unidade,
       });
@@ -51,8 +51,7 @@ const SignInUp = () => {
           password,
         });
         console.log('Login Successful', response.data);
-
-        // Redirect to the desired page on successful login
+        localStorage.setItem('userId', response.data.userId);
         navigate('/MyAccount');
       } catch (error) {
         console.error('There was an error logging in!', error);
@@ -194,34 +193,30 @@ const SignInUp = () => {
                       onChange={(e) => setSemestre(e.target.value)}
                     />
                   </div>
-                  <div className="input">
-                    <label htmlFor="turno">Turno*</label>
-                    <input
-                      type="text"
-                      id="turno"
-                      value={turno}
-                      onChange={(e) => setTurno(e.target.value)}
-                    />
-                  </div>
+
                   <div className="input">
                     <label htmlFor="unidade">Instituição de Ensino*</label>
-                    <select type="text"
-                      id="unidade"
-                      value={unidade}
-                      onChange={(e) => setUnidade(e.target.value)}>
-                      <option value={unidade}>Fatec São Bernardo do Campo</option>
-                      <option value={unidade}>Fatec Diadema</option>
+                    <select
+                        type="text"
+                        id="unidade"
+                        value={unidade}
+                        onChange={(e) => setUnidade(e.target.value)}
+                      >
+                        <option value="Fatec São Bernardo do Campo">Fatec São Bernardo do Campo</option>
+                        <option value="Fatec Diadema">Fatec Diadema</option>
                     </select>
                   </div>
 
                   <div className="input">
                     <label htmlFor="curso">Curso*</label>
-                    <select type="text"
-                      id="curso"
-                      value={curso}
-                      onChange={(e) => setCurso(e.target.value)}>
-                      <option value={curso}>Desenvolvimento de Software</option>
-                      <option value={curso}>Gestão da Produção Industrial</option>
+                    <select
+                        type="text"
+                        id="curso"
+                        value={curso}
+                        onChange={(e) => setCurso(e.target.value)}
+                      >
+                        <option value="Desenvolvimento de Software Multiplataforma">Desenvolvimento de Software Multiplataforma</option>
+                        <option value="Gestão da Produção Industrial">Gestão da Produção Industrial</option>
                     </select>
                   </div>
                 </>
@@ -236,7 +231,7 @@ const SignInUp = () => {
                       value={instituicao}
                       onChange={(e) => setInstituicao(e.target.value)} />
                   </div><div className="input">
-                      <label htmlFor="emailInstitucional">E-mail Instituição*</label>
+                      <label htmlFor="emailInstitucional">E-mail Institucional*</label>
                       <input
                         type="text"
                         id="emailInstitucional"
