@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import LogoImg from '../static/Logo.svg';
 import { useNavigate } from 'react-router-dom';
 
+
 const SignInUp = () => {
   const navigate = useNavigate();
   const [action, setAction] = useState('Cadastrar');
@@ -12,7 +13,6 @@ const SignInUp = () => {
   const [emailInstitucional, setEmailInstitucional] = useState('');
   const [ra, setRA] = useState('');
   const [semestre, setSemestre] = useState('');
-  const [turno, setTurno] = useState('');
   const [instituicao, setInstituicao] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -50,8 +50,13 @@ const SignInUp = () => {
           email,
           password,
         });
+
         console.log('Login Successful', response.data);
         localStorage.setItem('userId', response.data.userId);
+        localStorage.setItem('userEmail', email);
+        localStorage.setItem('userPassword', password);
+        const accountDetailsResponse = await axios.get(`http://localhost:8080/api/users/myAccount?email=${email}&password=${password}`);
+        console.log('Account Details:', accountDetailsResponse.data);
         navigate('/MyAccount');
       } catch (error) {
         console.error('There was an error logging in!', error);
