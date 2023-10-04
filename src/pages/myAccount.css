@@ -64,3 +64,14 @@
     padding: 10px;
     border: none;
 }
+
+.changePasswordBox{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    padding: 45px 90px;
+    position: absolute;
+    background: white;
+    /* height: 51px; */
+    box-shadow: 0px 2px 0px 20000px rgb(0 0 0 / 48%);
+}

@@ -1,14 +1,13 @@
-import { useState, useEffect } from 'react'
-import "./myAccount.css"
-import CompleteAccount from '../components/CompleteAccount'
-import { redirect, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import "./myAccount.css";
 
 const MyAccount = () => {
-  const [userInfo, setInfo] = useState({})
-  const [erro, setErro] = useState(null)
+  const [userInfo, setInfo] = useState({});
+  const [erro, setErro] = useState(null);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [changePasswordError, setChangePasswordError] = useState(null);
+  const [showPasswordFields, setShowPasswordFields] = useState(false);
 
   const handleChangePassword = async () => {
     const currentPasswordInput = document.getElementById('currentPassword');
@@ -73,7 +72,6 @@ const MyAccount = () => {
           throw new Error();
         }
         const data = await answer.json()
-        console.log(JSON.stringify(data));
         setInfo(data)
       } catch (error) {
         setErro(error.message)
@@ -83,17 +81,14 @@ const MyAccount = () => {
     consult()
   }, [])
 
-  if (erro) {
-    return <h3>{erro}</h3>;
-  } else {
-    return (
-      <div className='myAccountBox myAccountContainer'>
-        <div>
-          <h1>Olá, {userInfo?.userName || 'Nome não disponível'}! </h1>
-          <h3>Minha conta.</h3>
-        </div>
-        <form className='formContainer'>
-          <label>Nome:</label>
+  return (
+    <div className='myAccountBox myAccountContainer'>
+      <div>
+        <h1>Olá, {userInfo?.userName || 'Nome não disponível'}! </h1>
+        <h3>Minha conta.</h3>
+      </div>
+      <form className='formContainer'>
+      <label>Nome:</label>
           <input type="text" value={userInfo?.userName || ''} disabled />
 
           <label>E-Mail:</label>
@@ -119,24 +114,35 @@ const MyAccount = () => {
           <label>Senha:</label>
           <input type="password" value={userInfo?.password || ''} disabled />
 
+        {/* ...outros campos de formulário */}
 
-          <button className='changePassword'>Quero trocar de senha</button>
+        <button type='button' className='changePassword' onClick={() => setShowPasswordFields(!showPasswordFields)}>
+          Quero trocar de senha
+        </button>
 
-          <label>Confirmar Senha Atual:</label>
-          <input type="password" id='currentPassword'/>
+        {showPasswordFields && (
+          <div className='changePasswordBox'>
+            <label>Confirmar Senha Atual:</label>
+            <input type='password' id='currentPassword' />
 
-          <label>Nova Senha:</label>
-          <input type="password" id='newPassword'/>
+            <label>Nova Senha:</label>
+            <input type='password' id='newPassword' />
 
-          <label>Confirmar nova Senha:</label>
-          <input type="password" id='confirmNewPassword'/>
-        </form>
+            <label>Confirmar Nova Senha:</label>
+            <input type='password' id='confirmNewPassword' />
+            <button type='submit' className='changePasswordBtn' onClick={handleChangePassword}>
+          Trocar senha
+        </button>
+          </div>
+        )}
 
-        <button type='submit' className='changePasswordBtn' onClick={handleChangePassword}>Trocar senha</button>
-        <button type='submit' className='deleteAccountBtn' onClick={handleDeleteAccount}>EXCLUIR CONTA</button>
-      </div>
-    )
-  }
+
+        <button type='submit' className='deleteAccountBtn' onClick={handleDeleteAccount}>
+          EXCLUIR CONTA
+        </button>
+      </form>
+    </div>
+  );
 }
 
 export default MyAccount;
