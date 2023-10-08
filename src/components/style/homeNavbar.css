@@ -3,10 +3,8 @@
     border-bottom: 1px solid #B40611;
     align-items: center;
     justify-content: space-around;
-    z-index: 99999999999999;
     overflow: hidden;
     background-color: white;
-    position: fixed;
     top: 0;
     width: 100%;
 }

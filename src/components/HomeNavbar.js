@@ -4,7 +4,7 @@ import "./style/global.css"
 
 const HomeNavbar = () => {
   return (
-    <nav className='homeNavbar'>
+    <nav className='navbar fixed-top homeNavbar'>
       <div className='logoNavbar'>
         <img src={LogoImg} alt="Logo" />
       </div>
