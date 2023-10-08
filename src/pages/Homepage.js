@@ -10,6 +10,7 @@ function Homepage() {
     <div className="App">
       <HomeNavbar/>
        <Hero/>
+       <hr/>
        <AboutUs/>
       <TechGrid/>
       <Team/>

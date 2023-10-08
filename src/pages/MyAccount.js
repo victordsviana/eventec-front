@@ -114,8 +114,6 @@ const MyAccount = () => {
           <label>Senha:</label>
           <input type="password" value={userInfo?.password || ''} disabled />
 
-        {/* ...outros campos de formulário */}
-
         <button type='button' className='changePassword' onClick={() => setShowPasswordFields(!showPasswordFields)}>
           Quero trocar de senha
         </button>
