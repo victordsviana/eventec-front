@@ -1,34 +1,35 @@
-import React from 'react'
-import LogoImg from '../static/Logo.svg'
-import "./style/global.css"
+import React from 'react';
+import LogoImg from '../static/Logo.svg';
+import "./style/global.css";
 
 const HomeNavbar = () => {
   return (
-    <nav className='navbar fixed-top homeNavbar'>
-      <div className='logoNavbar'>
-        <img src={LogoImg} alt="Logo" />
-      </div>
-
-      <div className='anchorItems'>
-
-        <a href='#aboutUsId'>
-          <h3>Sobre nós</h3>
-        </a>
-        <a href='/'>
-          <h3>Eventos</h3>
-        </a>
-        <a href='#teamId'>
-          <h3>Nossa equipe</h3>
-        </a>
-      </div>
-
-      <a href='/signinup'>
-        <button className='btnRedirectLoginPage'>
-          Login
+    <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+      <div className="container-fluid">
+        <a className="navbar-brand logoEventec" href="/">Eventec</a>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
         </button>
-      </a>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li className="nav-item ms-4">
+              <a className="nav-link active hover-underline-animation" aria-current="page" href="#aboutUsId">Sobre nós</a>
+            </li>
+            <li className="nav-item ms-4">
+              <a className="nav-link active hover-underline-animation" aria-current="page" href="#teamId">A equipe</a>
+            </li>
+            <li className="nav-item ms-4">
+              <a className="nav-link active hover-underline-animation" aria-current="page" href="/events">Eventos</a>
+            </li>
+          </ul>
+          <a className="nav-link active" aria-current="page" href="/signinup">
+          <button className="btn btn-outline-danger" type="submit">Login</button>
+          </a>
+
+        </div>
+      </div>
     </nav>
-  )
+  );
 }
 
-export default HomeNavbar
+export default HomeNavbar;
