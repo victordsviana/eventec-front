@@ -9,3 +9,11 @@
         width: fit-content;
     }
 }
+
+.openEventInput{
+    align-self: center;
+
+    >.form-check-label{
+        float: inline-start;
+    }
+}

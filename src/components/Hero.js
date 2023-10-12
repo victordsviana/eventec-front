@@ -8,9 +8,9 @@ const Hero = () => {
             <div className='row'>
                 <div className='col'>
                 <div id="sentence-wrapper">
-                <h2 class="sentence">
+                <h2 className="sentence">
                     <span className='eventece'>Eventec é  </span>
-                    <div class="words words-1">
+                    <div className="words words-1">
                         <span>Fatec</span>
                         <span>Certificados</span>
                         <span>Eventos</span>

@@ -106,7 +106,7 @@ const SignInUp = () => {
           {action === 'Login' ? (
             <>
               <div className="input">
-                <label htmlFor="email">E-mail*</label>
+                <label htmlhtmlFor="email">E-mail*</label>
                 <input
                   type="email"
                   id="email"
@@ -116,7 +116,7 @@ const SignInUp = () => {
               </div>
 
               <div className="input">
-                <label htmlFor="password">Senha*</label>
+                <label htmlhtmlFor="password">Senha*</label>
                 <input
                   type="password"
                   id="password"
@@ -128,7 +128,7 @@ const SignInUp = () => {
           ) : (
             <>
               <div className="input">
-                <label htmlFor="userName">Nome*</label>
+                <label htmlhtmlFor="userName">Nome*</label>
                 <input
                   type="text"
                   id="userName"
@@ -137,7 +137,7 @@ const SignInUp = () => {
                 />
               </div>
               <div className="input">
-                <label htmlFor="email">E-mail*</label>
+                <label htmlhtmlFor="email">E-mail*</label>
                 <input
                   type="email"
                   id="email"
@@ -147,7 +147,7 @@ const SignInUp = () => {
               </div>
 
               <div className="input">
-                <label htmlFor="email">CPF*</label>
+                <label htmlhtmlFor="email">CPF*</label>
                 <input
                   type="number"
                   id="cpf"
@@ -157,7 +157,7 @@ const SignInUp = () => {
               </div>
 
               <div className="input">
-                <label htmlFor="password">Senha*</label>
+                <label htmlhtmlFor="password">Senha*</label>
                 <input
                   type="password"
                   id="password"
@@ -170,7 +170,7 @@ const SignInUp = () => {
                 <>
 
                   <div className="input">
-                    <label htmlFor="emailInstitucional">E-mail Instituição*</label>
+                    <label htmlhtmlFor="emailInstitucional">E-mail Instituição*</label>
                     <input
                       type="text"
                       id="emailInstitucional"
@@ -180,7 +180,7 @@ const SignInUp = () => {
                   </div>
 
                   <div className="input">
-                    <label htmlFor="ra">RA*</label>
+                    <label htmlhtmlFor="ra">RA*</label>
                     <input
                       type="text"
                       id="ra"
@@ -190,7 +190,7 @@ const SignInUp = () => {
                   </div>
 
                   <div className="input">
-                    <label htmlFor="semestre">Semestre*</label>
+                    <label htmlhtmlFor="semestre">Semestre*</label>
                     <input
                       type="number"
                       id="semestre"
@@ -200,7 +200,7 @@ const SignInUp = () => {
                   </div>
 
                   <div className="input">
-                    <label htmlFor="unidade">Instituição de Ensino*</label>
+                    <label htmlhtmlFor="unidade">Instituição de Ensino*</label>
                     <select
                         type="text"
                         id="unidade"
@@ -213,7 +213,7 @@ const SignInUp = () => {
                   </div>
 
                   <div className="input">
-                    <label htmlFor="curso">Curso*</label>
+                    <label htmlhtmlFor="curso">Curso*</label>
                     <select
                         type="text"
                         id="curso"
@@ -229,14 +229,14 @@ const SignInUp = () => {
               {userType === 'professor' && (
 
                 <><div className="input">
-                    <label htmlFor="instituicao">Instituição de Ensino*</label>
+                    <label htmlhtmlFor="instituicao">Instituição de Ensino*</label>
                     <input
                       type="text"
                       id="instituicao"
                       value={instituicao}
                       onChange={(e) => setInstituicao(e.target.value)} />
                   </div><div className="input">
-                      <label htmlFor="emailInstitucional">E-mail Institucional*</label>
+                      <label htmlhtmlFor="emailInstitucional">E-mail Institucional*</label>
                       <input
                         type="text"
                         id="emailInstitucional"

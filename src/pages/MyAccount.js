@@ -82,6 +82,7 @@ const MyAccount = () => {
   }, [])
 
   return (
+    
     <div className='myAccountBox myAccountContainer'>
       <div>
         <h1>Olá, {userInfo?.userName || 'Nome não disponível'}! </h1>
@@ -139,6 +140,11 @@ const MyAccount = () => {
           EXCLUIR CONTA
         </button>
       </form>
+      <div className="row">
+  <a href="/crudevent">
+    <button>CRUD EVENT</button>
+  </a>
+</div>
     </div>
   );
 }

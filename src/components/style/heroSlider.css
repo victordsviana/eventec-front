@@ -49,5 +49,6 @@
   .slider .slide {
     height: 100px; /* Set the height of each slide */
     width: 250px;
+    margin-top: 15px;
   }
   

@@ -8,17 +8,17 @@ const CompleteAccount = () => {
                     <legend>Que tipo de usuário você é?</legend>
                 <div>
                     <input type="radio" id="aluno" name="aluno" value="aluno" checked />
-                    <label for="aluno">Aluno</label>
+                    <label htmlFor="aluno">Aluno</label>
                 </div>
                 
                 <div>
                     <input type="radio" id="funcProf" name="funcProf" value="funcProf" />
-                    <label for="funcProf">Funcionário/Professor</label>
+                    <label htmlFor="funcProf">Funcionário/Professor</label>
                 </div>
 
                 <div>
                     <input type="radio" id="outro" name="outro" value="outro" />
-                    <label for="outro">Outro</label>
+                    <label htmlFor="outro">Outro</label>
                 </div>
                 </fieldset>
 
