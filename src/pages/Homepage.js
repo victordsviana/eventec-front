@@ -4,6 +4,7 @@ import Hero from '../components/Hero';
 import HomeNavbar from '../components/HomeNavbar';
 import Team from '../components/Team';
 import TechGrid from '../components/TechGrid';
+import "../components/style/home.css";
 
 function Homepage() {
   return (

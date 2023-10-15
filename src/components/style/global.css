@@ -7,6 +7,7 @@
 @import "footer.css";
 @import "signInUp.css";
 @import "crudEvent.css";
+@import "cardEvent.css";
 button {
     cursor: pointer;
 }
@@ -20,9 +21,4 @@ html {
 
 * {
     font-family: 'Open Sans', sans-serif;
-}
-
-
-body{
-    padding-top: 90px;
 }
