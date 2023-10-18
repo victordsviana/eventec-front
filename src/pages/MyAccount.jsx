@@ -2,8 +2,11 @@ import { useState, useEffect } from 'react';
 import Footer from '../components/Footer';
 import "./myAccount.css";
 import HomeNavbar from '../components/HomeNavbar';
+import { useNavigate } from 'react-router-dom';
+
 
 const MyAccount = () => {
+  const navigate = useNavigate();
   const [userInfo, setInfo] = useState({});
   const [erro, setErro] = useState(null);
   const [currentPassword, setCurrentPassword] = useState('');
@@ -55,6 +58,7 @@ const MyAccount = () => {
 
       if (response.ok) {
         console.log("Excluído com sucesso")
+        navigate('/');
       } else {
       }
     } catch (error) {
@@ -86,15 +90,15 @@ const MyAccount = () => {
   return (
     <><><div className="container">
       <div className="row d-flex justify-content-around ">
-        <div className='col-5 myAccountBox'>
-          <div class="modal fade" id="changePassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Troca de senha</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div className='col-4 myAccountBox'>
+          <div className="modal fade" id="changePassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h1 className="modal-title fs-5" id="exampleModalLabel">Troca de senha</h1>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div className="modal-body">
                   <form>
                     <label className='form-label'>Confirmar Senha Atual:</label>
                     <input className='form-control' type='password' id='currentPassword' />
@@ -106,52 +110,129 @@ const MyAccount = () => {
                     <input className='form-control' type='password' id='confirmNewPassword' />                    </form>
 
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                  <button type='submit' class="changePasswordBtn btn btn-primary" onClick={handleChangePassword}>Salvar</button>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                  <button type='submit' className="changePasswordBtn btn btn-primary" onClick={handleChangePassword}>Salvar</button>
                 </div>
               </div>
             </div>
           </div>
+
+
+          <div className="modal fade" id="deleteAccount" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h1 className="modal-title fs-5" id="exampleModalLabel">Troca de senha</h1>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div className="modal-body">
+                  <h1>Deseja realmente excluir a conta?</h1>
+                  <button type='submit' className='btn btn-outline-danger' data-bs-toggle="modal" data-bs-target="#deleteAccount" onClick={handleDeleteAccount}>
+                Quero excluir a conta.
+              </button>
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+
           <div className='d-flex justify-content-between'>
             <h5>Olá, {userInfo?.userName || 'Nome não disponível'}! </h5>
             <h5></h5>
           </div>
           <form className='formContainer'>
-            <label className='form-label'>Nome:</label>
-            <input className='form-control' type="text" value={userInfo?.userName || ''} disabled />
+            <div className="form-floating mb-3">
+              <input className='form-control' type="text" placeholder='Nome' value={userInfo?.userName || ''} disabled />
+              <label className='form-label'>Nome:</label>
+            </div>
 
-            <label className='form-label'>E-Mail:</label>
-            <input className='form-control' type="text" value={userInfo?.email || ''} disabled />
+            <div className="form-floating mb-3">
+              <input className='form-control' type="text" value={userInfo?.email || ''} placeholder='E-mail' disabled />
+              <label className='form-label'>E-Mail:</label>
+            </div>
 
-            <label className='form-label'>CPF:</label>
-            <input className='form-control' type="text" value={userInfo?.cpf || ''} disabled />
+            <div className="form-floating mb-3">
+              <input className='form-control' type="text" placeholder='CPF' value={userInfo?.cpf || ''} disabled />
+              <label className='form-label'>CPF:</label>
+            </div>
 
-            <label className='form-label'>E-Mail Institucional:</label>
-            <input className='form-control' type="text" value={userInfo?.emailInstitucional || 'N/A'} disabled />
+            <div className={`form-floating mb-3 ${!userInfo.emailInstitucional ? 'd-none' : ''}`}>
+              <input className='form-control' type="text" placeholder='E-mail Institucional' value={userInfo?.emailInstitucional || 'N/A'} disabled />
+              <label className='form-label'>E-Mail Institucional:</label>
+            </div>
 
-            <label className='form-label'>RA:</label>
-            <input className='form-control' type="text" value={userInfo?.ra || 'N/A'} disabled />
+            <div className={`form-floating mb-3 ${!userInfo.ra ? 'd-none' : ''}`}>
+              <input className='form-control' type="text" value={userInfo?.ra || 'N/A'} placeholder='RA' disabled />
+              <label className='form-label'>RA:</label>
+            </div>
 
-            <label className='form-label'>Semestre:</label>
-            <input className='form-control' type="text" value={userInfo?.semestre || 'N/A'} disabled />
+            <div className={`form-floating mb-3 ${!userInfo.semestre ? 'd-none' : ''}`}>
+              <input className='form-control' type="text" value={userInfo?.semestre || 'N/A'} placeholder='Semestre' disabled />
+              <label className='form-label'>Semestre:</label>
+            </div>
 
-            <label className='form-label'>Instituição de Ensino:</label>
-            <input className='form-control' type="text" value={userInfo?.unidade || 'N/A'} disabled />
+            <div className={`form-floating mb-3 ${!userInfo.unidade ? 'd-none' : ''}`}>
+              <input className='form-control' type="text" value={userInfo?.unidade || 'N/A'} placeholder='Instituição de Ensino' disabled />
+              <label className='form-label'>Instituição de Ensino:</label>            </div>
 
-            <label className='form-label'>Curso:</label>
-            <input className='form-control' type="text" value={userInfo?.curso || 'N/A'} disabled />
-            <label className='form-label'>Senha:</label>
-            <input className='form-control' type="password" value={userInfo?.password || ''} disabled />
+            <div className={`form-floating mb-3 ${!userInfo.curso ? 'd-none' : ''}`}>
+              <input className='form-control' type="text" value={userInfo?.curso || 'N/A'} placeholder='Curso' disabled />
+              <label className='form-label'>Curso:</label>
+            </div>
+
+            <div className="form-floating mb-3">
+              <input className='form-control' type="password" value={userInfo?.password || ''} disabled />
+              <label className='form-label'>Senha:</label>
+            </div>
 
 
           </form>
 
           <div className="col-12 changePasswordContainer">
-            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#changePassword">
+            <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#changePassword">
               Quero trocar de senha
             </button>
           </div>
+        </div>
+
+        <div className='col-4 myAccountBox'>
+
+          <div className='d-flex justify-content-between'>
+            <h5>Seu endereço: </h5>
+            <h5></h5>
+          </div>
+          <form className='formContainer'>
+            <div className="form-floating mb-3">
+              <input className='form-control' type="text" placeholder='zipCode' value={userInfo?.zipCode || ''} disabled />
+              <label className='form-label'>CEP:</label>
+            </div>
+
+            <div className="form-floating mb-3">
+              <input className='form-control' type="text" value={userInfo?.street || ''} placeholder='street' disabled />
+              <label className='form-label'>Endereço:</label>
+            </div>
+
+            <div className="form-floating mb-3">
+              <input className='form-control' type="text" placeholder='Estado' value={userInfo?.state || ''} disabled />
+              <label className='form-label'>Estado:</label>
+            </div>
+
+            <div className="form-floating mb-3">
+              <input className='form-control' type="text" placeholder='Bairro' value={userInfo?.neighborhood || 'N/A'} disabled />
+              <label className='form-label'>Bairro:</label>
+            </div>
+
+            <div className="form-floating mb-3">
+              <input className='form-control' type="text" value={userInfo?.RA || 'N/A'} placeholder='Cidade' disabled />
+              <label className='form-label'>Cidade:</label>
+            </div>
+
+          </form>
         </div>
 
         <div className="col-3 myAccountBox">
@@ -164,7 +245,7 @@ const MyAccount = () => {
               </a>
             </div>
             <div className="p-2">
-              <button type='submit' className='btn btn-danger' onClick={handleDeleteAccount}>
+              <button type='submit' className='btn btn-danger' data-bs-toggle="modal" data-bs-target="#deleteAccount">
                 EXCLUIR CONTA
               </button>
             </div>

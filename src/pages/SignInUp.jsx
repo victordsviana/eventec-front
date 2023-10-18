@@ -3,7 +3,10 @@ import axios from 'axios';
 import Footer from '../components/Footer';
 import LogoImg from '../static/Logo.svg';
 import { useNavigate } from 'react-router-dom';
-
+import SignUpAluno from '../components/SignUpAluno';
+import SignUpProfessor from '../components/SignUpProfessor';
+import SignUpBasicInfo from '../components/SignUpBasicInfo';
+import SignUpAddress from '../components/SignUpAddress';
 
 const SignInUp = () => {
   const navigate = useNavigate();
@@ -29,26 +32,23 @@ const SignInUp = () => {
 
   const handleZipCodeChange = async (cepValue) => {
     setZipcode(cepValue);
-  
+
     if (cepValue.length === 8) {
       try {
         const response = await axios.get(`http://localhost:8080/api/endereco/${cepValue}`);
         const enderecoData = response.data;
-  
+
         if (enderecoData) {
-          setState(enderecoData.state || ''); 
-          setCity(enderecoData.city || '');  
-          setNeighborhood(enderecoData.neighborhood || ''); 
-          setStreet(enderecoData.street || '');  
+          setState(enderecoData.state || '');
+          setCity(enderecoData.city || '');
+          setNeighborhood(enderecoData.neighborhood || '');
+          setStreet(enderecoData.street || '');
         }
       } catch (error) {
         console.error("Erro ao buscar endereço pelo CEP:", error);
       }
     }
   };
-  
-  
-
   const handleUserTypeChange = (event) => {
     setUserType(event.target.value);
   };
@@ -108,292 +108,130 @@ const SignInUp = () => {
           <div className="header">
             <div className="text">{action}</div>
           </div>
-          <div className="user-type-input">
-            <label>
-              <input
-                type="radio"
-                value="aluno"
-                checked={userType === 'aluno'}
-                onChange={handleUserTypeChange}
-              />
-              Aluno*
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="usuarioComum"
-                checked={userType === 'usuarioComum'}
-                onChange={handleUserTypeChange}
-              />
-              Usuário Comum*
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="professor"
-                checked={userType === 'professor'}
-                onChange={handleUserTypeChange}
-              />
-              Professor*
-            </label>
+          <div className="row user-type-input justify-content-center">
+            <div className="col-2">
+              <label className='btn btn-outline-primary'>
+                <input
+                 className="custom-radio-input"
+                  type="radio"
+                  value="aluno"
+                  checked={userType === 'aluno'}
+                  onChange={handleUserTypeChange}
+                />
+                Aluno*
+              </label>
+            </div>
+            <div className="col-2">
+              <label className='btn btn-outline-primary'>
+                <input
+                 className="custom-radio-input"
+                  type="radio"
+                  value="usuarioComum"
+                  checked={userType === 'usuarioComum'}
+                  onChange={handleUserTypeChange}
+                />
+                Usuário Comum*
+              </label>
+            </div>
+            <div className="col-2">
+              <label className='btn btn-outline-primary'>
+                <input
+                 className="custom-radio-input"
+                  type="radio"
+                  value="professor"
+                  checked={userType === 'professor'}
+                  onChange={handleUserTypeChange} btn btn-outline-primary
+                />
+                Professor*
+              </label>
+            </div>
+
+
+
           </div>
           <div className="row">
             {action === 'Login' ? (
               <>
-              <div className="row justify-content-center">
-                <div className="col-4">
-                <div className="form-floating mb-3">
-                  <input className='form-control'
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)} placeholder='E-mail*'
-                  />
-                  <label className='form-label' htmlhtmlFor="email">E-mail*</label>
-                </div>
+                <div className="row justify-content-center">
+                  <div className="col-4">
+                    <div className="form-floating mb-3">
+                      <input className='form-control'
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)} placeholder='E-mail*'
+                      />
+                      <label className='form-label' htmlhtmlFor="email">E-mail*</label>
+                    </div>
 
-                <div className="form-floating mb-3">
-                  <input className='form-control'
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder='Senha*'
-                  />
-                  <label className='form-label' htmlhtmlFor="password">Senha*</label>
+                    <div className="form-floating mb-3">
+                      <input className='form-control'
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder='Senha*'
+                      />
+                      <label className='form-label' htmlhtmlFor="password">Senha*</label>
+                    </div>
+                  </div>
                 </div>
-                </div>
-              </div>
-                
               </>
             ) : (
               <>
-                <div className="col-4">
-                  <div className="d-flex justify-content-start">
-                    <h3>Informações básicas</h3>
-                  </div>
+                <SignUpBasicInfo
+                  userName={userName}
+                  setUserName={setUserName}
+                  email={email}
+                  setEmail={setEmail}
+                  cpf={cpf}
+                  setCpf={setCpf}
+                  password={password}
+                  setPassword={setPassword}
+                />
 
-                  <div className="form-floating mb-3">
-                    <input
-                      className="form-control" type="text" id="userName" value={userName}
-                      onChange={(e) => setUserName(e.target.value)}
-                      placeholder="Nome*"
-                    />
-                    <label htmlFor="userName">Nome*</label>
-                  </div>
-
-                  <div className="form-floating mb-3">
-                    <input className='form-control'
-                      type="email"
-                      id="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="email@email.com*"
-                    />
-                    <label htmlhtmlFor="email">E-mail*</label>
-                  </div>
-
-                  <div className="form-floating mb-3">
-                    <input className='form-control'
-                      type="number"
-                      id="cpf"
-                      value={cpf}
-                      onChange={(e) => setCpf(e.target.value)}
-                      placeholder='CPF'
-                    />
-                    <label className='form-label' htmlhtmlFor="email">CPF*</label>
-                  </div>
-
-                  <div className="form-floating mb-3">
-                    <input className='form-control'
-                      type="password"
-                      id="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder='Password'
-                    />
-                    <label className='form-label' htmlhtmlFor="password">Senha*</label>
-                  </div>
-
-                </div>
-
-
-                <div className="col-4">
-                  <div className="d-flex justify-content-start">
-                    <h3>Endereço</h3>
-                  </div>
-                  <div className="form-floating mb-3">
-                    <input className='form-control'
-                      type="text"
-                      id="zipCode"
-                      value={zipCode}
-                      placeholder='CEP'
-                      onChange={(e) => {
-                        setZipcode(e.target.value);
-                        handleZipCodeChange(e.target.value);
-                      }}
-                    />
-                      <label className='form-label' htmlhtmlFor="zipCode">CEP*</label>
-                  </div>
-
-                  <div className="form-floating mb-3">
-                    <input className='form-control'
-                      type="text"
-                      id="state"
-                      placeholder='Estado*'
-                      value={state}
-                      onChange={(e) => setState(e.target.value)} disabled
-                    />
-                    <label className='form-label' htmlhtmlFor="state">Estado*</label>
-                  </div>
-
-                  <div className="form-floating mb-3">
-                    <input className='form-control'
-                      type="text"
-                      id="city"
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      placeholder='Cidade*' disabled
-                    />
-                    <label className='form-label' htmlhtmlFor="city">Cidade*</label>
-                  </div>
-
-                  <div className="form-floating mb-3">
-                    <input className='form-control'
-                      type="text"
-                      id="neighborhood"
-                      value={neighborhood}
-                      onChange={(e) => setNeighborhood(e.target.value)}
-                      placeholder='Bairro*' disabled
-                    />
-                    <label className='form-label' htmlhtmlFor="neighborhood">Bairro*</label>
-                  </div>
-
-                  <div className="form-floating mb-3">
-                    <input className='form-control'
-                      type="text"
-                      id="street"
-                      value={street}
-                      onChange={(e) => setStreet(e.target.value)}
-                      placeholder='Rua*' disabled
-                    />
-                    <label className='form-label' htmlhtmlFor="street">Rua*</label>
-                  </div>
-
-                </div>
-
-
-
-
+                <SignUpAddress
+                  zipCode={zipCode}
+                  setZipcode={setZipcode}
+                  state={state}
+                  setState={setState}
+                  city={city}
+                  setCity={setCity}
+                  neighborhood={neighborhood}
+                  setNeighborhood={setNeighborhood}
+                  street={street}
+                  setStreet={setStreet}
+                  handleZipCodeChange={handleZipCodeChange}
+                />
 
                 {userType === 'aluno' && (
-                  <>
-                    
-                      <div className="col-4">
-                        <div className="d-flex justify-content-start">
-                          <h3>Informações adicionais</h3>
-                        </div>
-                        <div className="form-floating mb-3">
-                          <input className='form-control'
-                            type="text"
-                            id="emailInstitucional"
-                            value={emailInstitucional}
-                            onChange={(e) => setEmailInstitucional(e.target.value)}
-                            placeholder='Email institucional'
-                          />
-                          <label className='form-label' htmlhtmlFor="emailInstitucional">E-mail Instituição*</label>
-                        </div>
 
-                        <div className="form-floating mb-3">
-                          <input className='form-control'
-                            type="text"
-                            id="ra"
-                            value={ra}
-                            onChange={(e) => setRA(e.target.value)}
-                            placeholder='RA'
-                          />
-                          <label className='form-label' htmlhtmlFor="ra">RA*</label>
-                        </div>
-
-                        <div className="form-floating mb-3">
-                          <input className='form-control'
-                            type="number"
-                            id="semestre"
-                            value={semestre}
-                            onChange={(e) => setSemestre(e.target.value)}
-                            placeholder='Semestre'
-                          />
-                          <label className='form-label' htmlhtmlFor="semestre">Semestre*</label>
-                        </div>
-
-                        <div className="form-floating mb-3">
-                          <select className='form-select'
-                            type="text"
-                            id="unidade"
-                            value={unidade}
-                            onChange={(e) => setUnidade(e.target.value)}
-                          >
-                            <option value="Fatec São Bernardo do Campo">Fatec São Bernardo do Campo</option>
-                            <option value="Fatec Diadema">Fatec Diadema</option>
-                          </select>
-                          <label className='form-label' htmlhtmlFor="unidade">Instituição de Ensino*</label>
-                        </div>
-
-                        <div className="form-floating mb-3">
-                          <select className='form-select'
-                            type="text"
-                            id="curso"
-                            value={curso}
-                            onChange={(e) => setCurso(e.target.value)}
-                          >
-                            <option value="Desenvolvimento de Software Multiplataforma">Desenvolvimento de Software Multiplataforma</option>
-                            <option value="Gestão da Produção Industrial">Gestão da Produção Industrial</option>
-                          </select>
-                          <label className='form-label' htmlhtmlFor="curso">Curso*</label>
-                        </div>
-
-
-                      </div>
-                    
-                  </>
+                  <SignUpAluno
+                    emailInstitucional={emailInstitucional}
+                    setEmailInstitucional={setEmailInstitucional}
+                    ra={ra}
+                    setRA={setRA}
+                    semestre={semestre}
+                    setSemestre={setSemestre}
+                    unidade={unidade}
+                    setUnidade={setUnidade}
+                    curso={curso}
+                    setCurso={setCurso} />
                 )}
                 {userType === 'professor' && (
                   <>
-                    
-                      <div className="col-4">
-                        <div className="d-flex justify-content-start">
-                          <h3>Informações adicionais</h3>
-                        </div>
-                        <div className="form-floating mb-3">
-                          <input className='form-control'
-                            type="text"
-                            id="instituicao"
-                            value={instituicao}
-                            onChange={(e) => setInstituicao(e.target.value)} placeholder='Instituição de Ensino'/>
-                          <label className='form-label' htmlhtmlFor="instituicao">Instituição de Ensino*</label>
-                        </div><div className="form-floating mb-3">
-                          <input className='form-control'
-                            type="text"
-                            id="emailInstitucional"
-                            value={emailInstitucional}
-                            onChange={(e) => setEmailInstitucional(e.target.value)} placeholder='E-mail Instituicional' />
-                          <label className='form-label' htmlhtmlFor="emailInstitucional">E-mail Institucional*</label>
-                        </div>
-                      </div>
-                    
-
+                    <SignUpProfessor
+                      unidade={unidade}
+                      setUnidade={setUnidade}
+                      emailInstitucional={emailInstitucional}
+                      setEmailInstitucional={setEmailInstitucional}
+                    />
                   </>
-
-
                 )}
-
               </>
             )}
-            <div className="forgotPassword">
-              Esqueci a senha <span>Clique aqui</span>
-            </div>
-            <div className="d-flex gap-3 justify-content-center">
-              <div className={action === 'Login' ? 'submit gray' : 'submit'}
+            <div className="d-flex gap-3 justify-content-center loginRegisterbtn">
+              <div className={action === 'Login' ? 'btn btn-lg btn-outline-secondary' : 'btn btn-lg btn-success'}
                 onClick={() => {
                   if (action === 'Cadastrar') {
                     handleFormSubmit();
@@ -406,7 +244,7 @@ const SignInUp = () => {
 
               </div>
               <div
-                className={action === 'Cadastrar' ? 'submit gray' : 'submit'}
+                className={action === 'Cadastrar' ? 'btn btn-lg btn-outline-secondary' : 'btn btn-lg btn-success'}
                 onClick={() => {
                   if (action === 'Login') {
                     handleFormSubmit();
@@ -420,12 +258,9 @@ const SignInUp = () => {
             </div>
           </div>
         </div>
-
       </div>
-
       <Footer />
     </>
   );
 };
-
 export default SignInUp;

@@ -1,24 +1,13 @@
-.containerInUp{
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    margin-top: 20px;
-    background-color: white;
-    padding-bottom: 30px;
-    width: 600px;
-    border: 1px solid black;
-
-    .logoNavbar {
-        margin-top: 30px;
-        background: black;
-        display: flex;
-        padding: 10px;
-        /* border-radius: 10px; */
-        width: fit-content;
-        align-items: center;
-        justify-content: center;
-        align-self: center;
-    }
+.logoNavbar {
+    margin-top: 30px;
+    background: black;
+    display: none;
+    padding: 10px;
+    /* border-radius: 10px; */
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
 }
 
 .header {
@@ -80,3 +69,14 @@
     border: 1px solid black;
     border-radius: 8px;
 }
+
+.user-type-input{
+    margin-bottom: 45px;
+}
+.custom-radio-input{
+    visibility:hidden;
+  }
+
+  .loginRegisterbtn{
+    margin: 50px 0;
+  }
