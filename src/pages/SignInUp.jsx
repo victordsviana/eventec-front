@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import SignUpAluno from '../components/SignUpAluno';
 import SignUpProfessor from '../components/SignUpProfessor';
 import SignUpBasicInfo from '../components/SignUpBasicInfo';
+import SignUpDiretor from '../components/SignUpDiretor';
 import SignUpAddress from '../components/SignUpAddress';
 
 const SignInUp = () => {
@@ -146,6 +147,19 @@ const SignInUp = () => {
               </label>
             </div>
 
+            <div className="col-2">
+              <label className='btn btn-outline-primary'>
+                <input
+                 className="custom-radio-input"
+                  type="radio"
+                  value="diretor"
+                  checked={userType === 'diretor'}
+                  onChange={handleUserTypeChange} btn btn-outline-primary
+                />
+                Diretor*
+              </label>
+            </div>
+
 
 
           </div>
@@ -227,6 +241,14 @@ const SignInUp = () => {
                       setEmailInstitucional={setEmailInstitucional}
                     />
                   </>
+                )}
+                {userType === 'diretor' && (
+                    <SignUpDiretor
+                      unidade={unidade}
+                      setUnidade={setUnidade}
+                      emailInstitucional={emailInstitucional}
+                      setEmailInstitucional={setEmailInstitucional}
+                    />
                 )}
               </>
             )}

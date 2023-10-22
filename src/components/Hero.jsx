@@ -6,7 +6,7 @@ const Hero = () => {
         <div className=''>
 
             <div className='row'>
-                <div className='col'>
+                <div className='col-lg-6 col-xl-6'>
                 <div id="sentence-wrapper">
                 <h2 className="sentence">
                     <span className='eventece'>Eventec é  </span>
@@ -38,10 +38,12 @@ const Hero = () => {
               
             </div>
                 </div>
-                <div className='col'>
+                <div className='col-lg-6 col-xl-6'>
                 <div className='animatedImages'>
                 <HeroSlider />
+                <div className="secondSlider">
                 <HeroSlider />
+                </div>
             </div>
                 </div>
             </div>

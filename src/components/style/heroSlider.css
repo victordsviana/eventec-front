@@ -52,3 +52,9 @@
     margin-top: 15px;
   }
   
+
+@media (max-width: 1200px){
+  .secondSlider{
+    display: none;
+}  
+}

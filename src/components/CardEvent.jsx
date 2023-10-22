@@ -1,10 +1,6 @@
 import React from 'react'
 
-const CardEvent = ({ eventTitle, eventDescription, eventCategory, eventAddress, eventDate }) => {
-
-    const cepRegex = /\b\d{5}-\d{3}\b/;
-    const extractedCep = eventAddress.match(cepRegex);
-
+const CardEvent = ({ eventTitle, eventDescription, eventCategory, eventAddress, eventDate, distance }) => {
 
   return (
     <div className="card text-start" style={{ width: "100%" }}>
@@ -18,7 +14,7 @@ const CardEvent = ({ eventTitle, eventDescription, eventCategory, eventAddress, 
 
         <span>Localização: </span>
         <span>{eventAddress}</span>
-        <span>CEP aqui: {extractedCep ? extractedCep[0] : 'N/A'}</span>
+        <span>Distância: {typeof distance === 'number' ? distance.toFixed(2) : 'N/A'} km</span>
         <input type="datetime-local" value={eventDate} disabled />
         <br />
         <a href="#" className="btn btn-primary">
