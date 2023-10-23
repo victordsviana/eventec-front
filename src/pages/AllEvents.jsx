@@ -3,6 +3,7 @@ import axios from 'axios';
 import HomeNavbar from '../components/HomeNavbar';
 import CardEvent from '../components/CardEvent';
 
+
 const haversineDistance = (lat1, lon1, lat2, lon2) => {
   const R = 6371; // Raio da Terra em quilômetros
   const dLat = (lat2 - lat1) * (Math.PI / 180);
@@ -19,6 +20,7 @@ const haversineDistance = (lat1, lon1, lat2, lon2) => {
 const AllEvents = () => {
   const [userLocation, setUserLocation] = useState(null);
   const [allEvents, setAllEvents] = useState([]);
+  const [userid] = useState(localStorage.getItem('userid')); // Mudança aqui
 
   const getUserLocation = () => {
     if (navigator.geolocation) {
@@ -65,6 +67,28 @@ const AllEvents = () => {
     }
   }, [userLocation]);
   
+  const handleSubscribeToEvent = async (eventId) => {
+    try {
+      const response = await axios.post('http://localhost:8080/subscriptions', null, {
+        params: {
+          userid,
+          eventId
+        }
+      });
+  
+      if (response.status === 200) {
+        alert(response.data);
+      } else if (!userid) {
+        console.error("userid não encontrado.");
+      } else{
+        console.error("Erro ao se inscrever no evento.");
+      }
+    } catch (error) {
+      console.error('Error subscribing to the event', error);
+      alert('Erro ao se inscrever. Por favor, tente novamente.');
+    }
+  }
+
   const showError = (error) => {
     switch (error.code) {
       case error.PERMISSION_DENIED:
@@ -86,15 +110,20 @@ const AllEvents = () => {
   useEffect(() => {
     const fetchAllEvents = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/allEvents');
+        const response = await axios.get('http://localhost:8080/approvedEvents', {
+          headers: {
+            'User-Id': userid
+          }
+        });
         setAllEvents(response.data);
       } catch (error) {
         console.error('Error fetching all events', error);
       }
     }
 
+
     fetchAllEvents();
-  }, []);
+  }, [userid]);
 
   return (
     <>
@@ -121,6 +150,7 @@ const AllEvents = () => {
                 eventAddress={event.address}
                 eventDate={event.dateEvent}
                 distance={event.distanceFromUser} 
+                onSubscribe={() => handleSubscribeToEvent(event.id)} 
               />
             ))}
           </div>

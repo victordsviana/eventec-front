@@ -37,6 +37,7 @@ const CreateEvents = () => {
   const handleFormEventSubmit = async (event) => {
     event.preventDefault();
 
+    const userid = localStorage.getItem('userid')
     const userEmail = localStorage.getItem('userEmail');
     const userPassword = localStorage.getItem('userPassword');
 

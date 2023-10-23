@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Footer from '../components/Footer';
 import "./myAccount.css";
-import HomeNavbar from '../components/HomeNavbar';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -13,6 +12,10 @@ const MyAccount = () => {
   const [newPassword, setNewPassword] = useState('');
   const [changePasswordError, setChangePasswordError] = useState(null);
   const [showPasswordFields, setShowPasswordFields] = useState(false);
+
+  const [userid] =useState('');
+  localStorage.setItem('userid',  userInfo.userid);
+
 
   const handleChangePassword = async () => {
     const currentPasswordInput = document.getElementById('currentPassword');
@@ -60,6 +63,7 @@ const MyAccount = () => {
         console.log("Excluído com sucesso")
         navigate('/');
       } else {
+        console.log("nada a exibir aqui.")
       }
     } catch (error) {
       console.error('Erro ao excluir a conta:', error);
@@ -67,6 +71,7 @@ const MyAccount = () => {
   };
 
   useEffect(() => {
+    const userid = localStorage.getItem('userid')
     const email = localStorage.getItem('userEmail');
     const password = localStorage.getItem('userPassword');
 
@@ -143,7 +148,7 @@ const MyAccount = () => {
 
           <div className='d-flex justify-content-between'>
             <h5>Olá, {userInfo?.userName || 'Nome não disponível'}! </h5>
-            <h5></h5>
+            <h5>{userInfo.userid}</h5>
           </div>
           <form className='formContainer'>
             <div className="form-floating mb-3">

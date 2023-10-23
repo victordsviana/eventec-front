@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CardEvent = ({ eventTitle, eventDescription, eventCategory, eventAddress, eventDate, distance }) => {
+const CardEvent = ({ eventTitle, eventDescription, eventCategory, eventAddress, eventDate, distance, onSubscribe}) => {
 
   return (
     <div className="card text-start" style={{ width: "100%" }}>
@@ -17,9 +17,13 @@ const CardEvent = ({ eventTitle, eventDescription, eventCategory, eventAddress, 
         <span>Distância: {typeof distance === 'number' ? distance.toFixed(2) : 'N/A'} km</span>
         <input type="datetime-local" value={eventDate} disabled />
         <br />
-        <a href="#" className="btn btn-primary">
-          Inscrever-se
-        </a>
+        <button className="btn btn-primary" onClick={(e) => {
+            e.preventDefault(); // Evitar a ação padrão do link
+            onSubscribe(); // Chamar a função passada como prop
+          }}>
+            Inscrever-se
+          </button>
+          
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ const ShowEvents = () => {
     const [editedEventDate, setEditedEventDate] = useState('');
 
     useEffect(() => {
+
         const userEmail = localStorage.getItem('userEmail');
         const userPassword = localStorage.getItem('userPassword');
 
@@ -18,7 +19,7 @@ const ShowEvents = () => {
                 console.error("Erro ao buscar eventos:", error);
             });
     }, []);
-
+    
     const deleteEvent = (eventId) => {
         axios.delete(`http://localhost:8080/event/${eventId}`)
             .then(response => {
@@ -56,14 +57,14 @@ const ShowEvents = () => {
         <div className="container">
             <h1>Esses são os seus eventos criados:</h1>
             <div className="accordion" id="accordionExample">
-                {events.map((event, index) => (
-                    <div key={index} className="accordion-item">
-                        <h2 className="accordion-header" id={`heading${index}`}>
-                            <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded={index === 0} aria-controls={`collapse${index}`}>
+                {events.map(event => (
+                    <div key={event.id} className="accordion-item">
+                        <h2 className="accordion-header" id={`heading${event.id}`}>
+                            <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${event.id}`} aria-expanded={event.id === events[0].id} aria-controls={`collapse${event.id}`}>
                                 {event.title}
                             </button>
                         </h2>
-                        <div id={`collapse${index}`} className={`accordion-collapse collapse ${index === 0 ? 'show' : ''}`} aria-labelledby={`heading${index}`} data-bs-parent="#accordionExample">
+                        <div id={`collapse${event.id}`} className={`accordion-collapse collapse ${event.id === events[0].id ? 'show' : ''}`} aria-labelledby={`heading${event.id}`} data-bs-parent="#accordionExample">
                             <div className="accordion-body">
                                 <div className="row d-grid gap-3">
                                     <div className="col-12">

@@ -17,12 +17,14 @@ const SignInUp = () => {
   const [emailInstitucional, setEmailInstitucional] = useState('');
   const [ra, setRA] = useState('');
   const [semestre, setSemestre] = useState('');
-  const [instituicao, setInstituicao] = useState('');
+  const [instituicao] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('usuarioComum');
   const [unidade, setUnidade] = useState('');
   const [curso, setCurso] = useState('');
+  
+  const [userid] =useState('');
 
   const [zipCode, setZipcode] = useState('');
   const [state, setState] = useState('');
@@ -58,6 +60,7 @@ const SignInUp = () => {
     if (action === 'Cadastrar') {
       try {
         const response = await axios.post('http://localhost:8080/api/users/create', {
+          userid,
           userName,
           email,
           password,
@@ -82,14 +85,16 @@ const SignInUp = () => {
     } else if (action === 'Login') {
       try {
         const response = await axios.post('http://localhost:8080/login', {
-          email,
+        userid,  
+        email,
           password,
         });
 
         console.log('Login Successful', response.data);
-        localStorage.setItem('userId', response.data.userId);
+        localStorage.setItem('userid',  userid);
         localStorage.setItem('userEmail', email);
         localStorage.setItem('userPassword', password);
+        localStorage.setItem('cpf', cpf);
         const accountDetailsResponse = await axios.get(`http://localhost:8080/api/users/myAccount?email=${email}&password=${password}`);
         console.log('Account Details:', accountDetailsResponse.data);
         navigate('/MyAccount');

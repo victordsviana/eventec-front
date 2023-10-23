@@ -4,7 +4,6 @@ import Footer from '../components/Footer';
 
 const DiretorMyAccount = () => {
 
-
     const userEmail = localStorage.getItem('userEmail');
     const userPassword = localStorage.getItem('userPassword');
 
@@ -77,7 +76,7 @@ const DiretorMyAccount = () => {
                     <div className="col-12 col-lg-6">
                         <h2>Eventos para aprovar:</h2>
                         {pendingEventsData.map((event, index) => (
-                            <div key={index}>
+                            <div key={event.id}>
                                 {renderEvent(event)}
                                 <div className="d-flex justify-content-between mb-3">
                                     <button className='btn btn-danger'>Reprovar</button>
@@ -89,7 +88,7 @@ const DiretorMyAccount = () => {
                     <div className="col-12 col-lg-6">
                         <h2>Eventos aprovados:</h2>
                         {approvedEventsData.map((event, index) => (
-                            <div key={index}>
+                            <div key={event.id}>
                                 {renderEvent(event)}
                             </div>
                         ))}
