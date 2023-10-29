@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
+
 const ShowEvents = () => {
     const [events, setEvents] = useState([]);
     const [editingEventId, setEditingEventId] = useState(null);
     const [editedEventDate, setEditedEventDate] = useState('');
+    const [eventUsers, setEventUsers] = useState([]);
+    const [currentEventId, setCurrentEventId] = useState(null);
+
 
     useEffect(() => {
 
@@ -19,7 +24,7 @@ const ShowEvents = () => {
                 console.error("Erro ao buscar eventos:", error);
             });
     }, []);
-    
+
     const deleteEvent = (eventId) => {
         axios.delete(`http://localhost:8080/event/${eventId}`)
             .then(response => {
@@ -35,6 +40,46 @@ const ShowEvents = () => {
         setEditingEventId(eventId);
         setEditedEventDate(eventDate);
     };
+
+    const fetchEventUsers = (eventId) => {
+        axios.get(`http://localhost:8080/eventUsers/${eventId}`)
+            .then(response => {
+                setCurrentEventId(eventId);
+                setEventUsers(response.data);
+                console.log(response.data)
+            })
+            .catch(error => {
+                console.error("Erro ao buscar usuários do evento:", error);
+            });
+    };
+    
+
+    const generateCertificates = (eventId) => {
+        const selectedUsers = [];
+        document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+            selectedUsers.push(Number(checkbox.value));
+        });
+
+        if (selectedUsers.length === 0) {
+            alert('Selecione pelo menos 1 usuário')
+            return;
+        }
+    
+        axios.post(`http://localhost:8080/api/certifications/generate/${eventId}`, selectedUsers)
+            .then(response => {
+                alert("Certificados gerados com sucesso!");
+            })
+            .catch(error => {
+                console.error("Erro ao gerar certificados:", error);
+            });
+    };
+
+
+    
+    
+    
+
+
 
     const saveEditedEvent = () => {
         axios.put(`http://localhost:8080/eventEdit/${editingEventId}`, { dateEvent: editedEventDate })
@@ -54,7 +99,36 @@ const ShowEvents = () => {
     };
 
     return (
+
+
         <div className="container">
+
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Concluir evento e enviar certificados</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            
+                            {eventUsers.map(user => (
+                                <div key={user.id} className="input-group mb-3">
+                                    <div className="input-group-text">
+                                        <input className="form-check-input mt-0" type="checkbox" value={user.user.userid} aria-label="Checkbox for following text input" />
+                                    </div>
+                                    <input type="text" className="form-control" value={user.user.userName} aria-label="Text input with checkbox" disabled />
+                                </div>
+                            ))}
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" className="btn btn-primary" onClick={() => generateCertificates(currentEventId)}>Confirmar</button>                        </div>
+                    </div>
+                </div>
+            </div>
+
             <h1>Esses são os seus eventos criados:</h1>
             <div className="accordion" id="accordionExample">
                 {events.map(event => (
@@ -121,7 +195,7 @@ const ShowEvents = () => {
                                             <button className="btn btn-danger" onClick={() => deleteEvent(event.id)}>Deletar</button>
                                         </div>
                                         <div className="col-3">
-                                            <button className="btn btn-success">Concluir</button>
+                                        <button className="btn btn-success" onClick={() => fetchEventUsers(event.id)} data-bs-toggle="modal" data-bs-target="#staticBackdrop">Concluir</button>
                                         </div>
                                     </div>
                                 </div>

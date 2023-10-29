@@ -15,6 +15,7 @@ const MyAccount = () => {
 
   const [userid] =useState('');
   localStorage.setItem('userid',  userInfo.userid);
+  localStorage.setItem('userName', userInfo.userName)
 
 
   const handleChangePassword = async () => {

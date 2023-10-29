@@ -20,7 +20,10 @@ const haversineDistance = (lat1, lon1, lat2, lon2) => {
 const AllEvents = () => {
   const [userLocation, setUserLocation] = useState(null);
   const [allEvents, setAllEvents] = useState([]);
-  const [userid] = useState(localStorage.getItem('userid')); // Mudança aqui
+  const [userid] = useState(localStorage.getItem('userid'));
+  const [userName] = useState(localStorage.getItem('userName'));
+
+   // Mudança aqui
 
   const getUserLocation = () => {
     if (navigator.geolocation) {
@@ -67,12 +70,13 @@ const AllEvents = () => {
     }
   }, [userLocation]);
   
-  const handleSubscribeToEvent = async (eventId) => {
+  const handleSubscribeToEvent = async (eventId, title, dateEvent, address) => {
     try {
       const response = await axios.post('http://localhost:8080/subscriptions', null, {
         params: {
           userid,
-          eventId
+          userName,
+          eventId,title, dateEvent, address
         }
       });
   
