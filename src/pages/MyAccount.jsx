@@ -249,6 +249,11 @@ const MyAccount = () => {
                 <button className='btn btn-lg btn-primary'>Criar evento</button>
               </a>
             </div>
+            <div className="mb-auto p-2">
+              <a href="/MyEvents">
+                <button className='btn btn-lg btn-primary'>Meus eventos</button>
+              </a>
+            </div>
             <div className="p-2">
               <button type='submit' className='btn btn-danger' data-bs-toggle="modal" data-bs-target="#deleteAccount">
                 EXCLUIR CONTA
