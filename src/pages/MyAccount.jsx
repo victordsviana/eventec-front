@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Footer from '../components/Footer';
 import "./myAccount.css";
-import HomeNavbar from '../components/HomeNavbar';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -242,6 +241,11 @@ const MyAccount = () => {
             <div className="mb-auto p-2">
               <a href="/crudevent">
                 <button className='btn btn-lg btn-primary'>Criar evento</button>
+              </a>
+            </div>
+            <div className="mb-auto p-2">
+              <a href="/MyEvents">
+                <button className='btn btn-lg btn-primary'>Meus eventos</button>
               </a>
             </div>
             <div className="p-2">

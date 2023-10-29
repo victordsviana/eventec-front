@@ -119,6 +119,9 @@ const ShowEvents = () => {
                                         <div className="col-3">
                                             <button className="btn btn-danger" onClick={() => deleteEvent(event.id)}>Deletar</button>
                                         </div>
+                                        <div className="col-3">
+                                            <button className="btn btn-success">Concluir</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
