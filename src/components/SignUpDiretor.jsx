@@ -13,7 +13,7 @@ const SignUpDiretor = ({ setUnidade, unidade, emailInstitucional, setEmailInstit
                         value={unidade}
                         onChange={(e) => setUnidade(e.target.value)}
                     >
-                        <option value="Fatec São Bernardo do Campo">Fatec São Bernardo do Campo</option>
+                        <option value="Fatec São Bernardo do Campo – Adib Moises Dib - Endereço: Av. Pereira Barreto, 400 - Vila Baeta Neves - Centro, São Bernardo do Campo - SP, 09751-000">Fatec São Bernardo do Campo</option>
                         <option value="Fatec Diadema - Luigi Papaiz - Endereço: Av. Luiz Merenda, 443 - Campanário, Diadema - SP, 09931-390">Fatec Diadema</option>
                     </select>
                     <label className='form-label' htmlhtmlFor="unidade">Instituição de Ensino*</label>

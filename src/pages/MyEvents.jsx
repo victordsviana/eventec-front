@@ -63,7 +63,6 @@ const MyEvents = () => {
                                         disabled />
                                 )}
                                 <br /><br />
-                                <a href="#" className="btn btn-primary">Pegar certificado</a>
                             </div>
                         </div>
                     </div>

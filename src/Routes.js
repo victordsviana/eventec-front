@@ -7,6 +7,7 @@ import CrudEvent from './pages/CrudEvent';
 import AllEvents from './pages/AllEvents';
 import DiretorMyAccount from './pages/DiretorMyAccount';
 import MyEvents from './pages/MyEvents';
+import MyCertifications from './pages/MyCertifications';
 
 const AppRoutes = () => {
   return (
@@ -19,6 +20,7 @@ const AppRoutes = () => {
             <Route path='/events' element={<AllEvents/>}></Route>
             <Route path='/myAccountDiretor' element={<DiretorMyAccount/>}></Route>
             <Route path='/myEvents' element={<MyEvents/>}></Route>
+            <Route path='/myCertifications' element={<MyCertifications/>}></Route>
         </Routes>
     </Router>
   )

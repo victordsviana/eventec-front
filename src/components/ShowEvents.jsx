@@ -117,6 +117,7 @@ const ShowEvents = () => {
                                     <div className="input-group-text">
                                         <input className="form-check-input mt-0" type="checkbox" value={user.user.userid} aria-label="Checkbox for following text input" />
                                     </div>
+                                    <input type="text" className="form-control d-none" value={user.user.userid} aria-label="Text input with checkbox" disabled />
                                     <input type="text" className="form-control" value={user.user.userName} aria-label="Text input with checkbox" disabled />
                                 </div>
                             ))}
