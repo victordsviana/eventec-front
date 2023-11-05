@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import Footer from '../components/Footer';
 import "./myAccount.css";
 import { useNavigate } from 'react-router-dom';
+import LoggedNavbar from './LoggedNavbar';
+import profileIcon from "../assets/profileIcon.png"
 
 
 const MyAccount = () => {
@@ -13,8 +15,8 @@ const MyAccount = () => {
   const [changePasswordError, setChangePasswordError] = useState(null);
   const [showPasswordFields, setShowPasswordFields] = useState(false);
 
-  const [userid] =useState('');
-  localStorage.setItem('userid',  userInfo.userid);
+  const [userid] = useState('');
+  localStorage.setItem('userid', userInfo.userid);
   localStorage.setItem('userName', userInfo.userName)
 
 
@@ -94,9 +96,33 @@ const MyAccount = () => {
   }, [])
 
   return (
-    <><><div className="container">
-      <div className="row d-flex justify-content-around ">
-        <div className='col-4 myAccountBox'>
+    <><LoggedNavbar /><>
+    <div className="container-bg">
+    <div className="container" style={{minHeight: "80vh"}}>
+      <div className="row justify-content-between ">
+        <div className="col-lg-6 col-xl-3 myAccountBox">
+
+          <div className="d-flex align-items-center flex-column justify-content-between menuContainer">
+          <div className="">
+            <img src={profileIcon} class="img-thumbnail" style={{ maxWidth: "50%" }} />
+            <br /><br />
+            <h5>Olá, {userInfo?.userName || 'Nome não disponível'}! </h5>
+            </div>
+            <div className="d-grid gap-3">
+              <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#changePassword">
+                Trocar de senha
+              </button>
+
+
+              <button type='submit' className='btn btn-danger' data-bs-toggle="modal" data-bs-target="#deleteAccount">
+                EXCLUIR CONTA
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <div className='col-lg-6 col-xl-4 myAccountBox'>
           <div className="modal fade" id="changePassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
               <div className="modal-content">
@@ -129,18 +155,19 @@ const MyAccount = () => {
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
-                  <h1 className="modal-title fs-5" id="exampleModalLabel">Troca de senha</h1>
+                  <h1 className="modal-title fs-5" id="exampleModalLabel">Excluir conta</h1>
                   <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body">
-                  <h1>Deseja realmente excluir a conta?</h1>
+                  <h3>Deseja realmente excluir a conta?</h3>
+                  <br />
                   <button type='submit' className='btn btn-outline-danger' data-bs-toggle="modal" data-bs-target="#deleteAccount" onClick={handleDeleteAccount}>
-                Quero excluir a conta.
-              </button>
+                    Quero excluir a conta.
+                  </button>
                 </div>
                 <div className="modal-footer">
                   <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                  
+
                 </div>
               </div>
             </div>
@@ -148,8 +175,8 @@ const MyAccount = () => {
 
 
           <div className='d-flex justify-content-between'>
-            <h5>Olá, {userInfo?.userName || 'Nome não disponível'}! </h5>
-            <h5>{userInfo.userid}</h5>
+            
+            <h5 className='d-none'>{userInfo.userid}</h5>
           </div>
           <form className='formContainer'>
             <div className="form-floating mb-3">
@@ -198,15 +225,9 @@ const MyAccount = () => {
 
 
           </form>
-
-          <div className="col-12 changePasswordContainer">
-            <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#changePassword">
-              Quero trocar de senha
-            </button>
-          </div>
         </div>
 
-        <div className='col-4 myAccountBox'>
+        <div className='col-lg-12 col-xl-4 myAccountBox'>
 
           <div className='d-flex justify-content-between'>
             <h5>Seu endereço: </h5>
@@ -240,31 +261,8 @@ const MyAccount = () => {
 
           </form>
         </div>
-
-        <div className="col-3 myAccountBox">
-
-          <div className="d-flex align-items-center flex-column menuContainer">
-
-            <div className="mb-auto p-2">
-              <a href="/crudevent">
-                <button className='btn btn-lg btn-primary'>Criar evento</button>
-              </a>
-            </div>
-            <div className="mb-auto p-2">
-              <a href="/MyEvents">
-                <button className='btn btn-lg btn-primary'>Meus eventos</button>
-              </a>
-            </div>
-            <div className="p-2">
-              <button type='submit' className='btn btn-danger' data-bs-toggle="modal" data-bs-target="#deleteAccount">
-                EXCLUIR CONTA
-              </button>
-            </div>
-          </div>
-
-        </div>
       </div>
-    </div><Footer /></></>
+    </div><Footer /></div></></>
   );
 }
 

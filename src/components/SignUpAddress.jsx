@@ -9,7 +9,7 @@ const SignUpAddress = ({
   handleZipCodeChange
 }) => {
   return (
-    <div className="col-4">
+    <div className="col-3">
       <div className="d-flex justify-content-start">
         <h3>Endereço</h3>
       </div>
@@ -55,7 +55,7 @@ const SignUpAddress = ({
           id="neighborhood"
           value={neighborhood}
           onChange={(e) => setNeighborhood(e.target.value)}
-          placeholder='Bairro*' disabled
+          placeholder='Bairro' disabled
         />
         <label className='form-label' htmlFor="neighborhood">Bairro*</label>
       </div>

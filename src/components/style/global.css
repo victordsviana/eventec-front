@@ -8,6 +8,7 @@
 @import "signInUp.css";
 @import "crudEvent.css";
 @import "cardEvent.css";
+@import "heroSection.css";
 button {
     cursor: pointer;
 }
@@ -21,4 +22,15 @@ html {
 
 * {
     font-family: 'Open Sans', sans-serif;
+}
+
+.loggedNavbar{
+    background-color: #304151 !important;
+}
+
+.logoEventec{
+    color: black;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 7px;
 }

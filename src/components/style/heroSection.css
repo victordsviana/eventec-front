@@ -1,0 +1,8 @@
+.hero {
+    height: 100vh; /* Isso faz com que o hero section ocupe 100% da altura da tela */
+    color: #000000; /* Cor do texto no hero section */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }

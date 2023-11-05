@@ -2,7 +2,7 @@ import React from 'react'
 
 const SignUpProfessor = ({ setUnidade, unidade, emailInstitucional, setEmailInstitucional }) => {
     return (
-      <div className="col-4">
+      <div className="col-3">
         <div className="d-flex justify-content-start">
           <h3>Informações adicionais</h3>
         </div>

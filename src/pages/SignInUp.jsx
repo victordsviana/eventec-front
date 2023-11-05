@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Footer from '../components/Footer';
 import LogoImg from '../static/Logo.svg';
 import { useNavigate } from 'react-router-dom';
 import SignUpAluno from '../components/SignUpAluno';
@@ -23,16 +22,21 @@ const SignInUp = () => {
   const [userType, setUserType] = useState('usuarioComum');
   const [unidade, setUnidade] = useState('');
   const [curso, setCurso] = useState('');
-  
-  const [userid] =useState('');
+  const [showModalContent, setShowModalContent] = useState(false);
+  const [userid] = useState('');
 
   const [zipCode, setZipcode] = useState('');
   const [state, setState] = useState('');
   const [city, setCity] = useState('');
   const [neighborhood, setNeighborhood] = useState('');
   const [street, setStreet] = useState('');
+  const [registrationStatus, setRegistrationStatus] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-
+  function refreshPage() {
+    localStorage.clear();
+    window.location.reload(false);
+  }
   const handleZipCodeChange = async (cepValue) => {
     setZipcode(cepValue);
 
@@ -57,7 +61,9 @@ const SignInUp = () => {
   };
 
   const handleFormSubmit = async () => {
+    setIsLoading(true);
     if (action === 'Cadastrar') {
+      
       try {
         const response = await axios.post('http://localhost:8080/api/users/create', {
           userid,
@@ -79,19 +85,28 @@ const SignInUp = () => {
           neighborhood
         });
         console.log('Registration Successful', response.data);
+        setRegistrationStatus('success');
+        setShowModalContent(true);
       } catch (error) {
         console.error('There was an error registering!', error);
+        setRegistrationStatus('error');
+        setShowModalContent(true);
+      } finally {
+        setTimeout(() => {
+          setIsLoading(false); // Desativar o spinner após 2 segundos
+        }, 1000);
       }
+      
     } else if (action === 'Login') {
       try {
         const response = await axios.post('http://localhost:8080/login', {
-        userid,  
-        email,
+          userid,
+          email,
           password,
         });
 
         console.log('Login Successful', response.data);
-        localStorage.setItem('userid',  userid);
+        localStorage.setItem('userid', userid);
         localStorage.setItem('userEmail', email);
         localStorage.setItem('userPassword', password);
         localStorage.setItem('cpf', cpf);
@@ -106,69 +121,64 @@ const SignInUp = () => {
 
   return (
     <>
-      <div className="container">
-        <div className="row formStyle">
+      <div className="row" style={{ height: "100vh" }}>
+        <div className="col-4 gradient-background"></div>
+        <div className="col-8 formStyle">
           <div className='logoNavbar'>
             <img src={LogoImg} alt="Logo" />
           </div>
           <div className="header">
             <div className="text">{action}</div>
           </div>
-          <div className="row user-type-input justify-content-center">
-            <div className="col-2">
-              <label className='btn btn-outline-primary'>
-                <input
-                 className="custom-radio-input"
-                  type="radio"
-                  value="aluno"
-                  checked={userType === 'aluno'}
-                  onChange={handleUserTypeChange}
-                />
-                Aluno*
-              </label>
-            </div>
-            <div className="col-2">
-              <label className='btn btn-outline-primary'>
-                <input
-                 className="custom-radio-input"
-                  type="radio"
-                  value="usuarioComum"
-                  checked={userType === 'usuarioComum'}
-                  onChange={handleUserTypeChange}
-                />
-                Usuário Comum*
-              </label>
-            </div>
-            <div className="col-2">
-              <label className='btn btn-outline-primary'>
-                <input
-                 className="custom-radio-input"
-                  type="radio"
-                  value="professor"
-                  checked={userType === 'professor'}
-                  onChange={handleUserTypeChange} btn btn-outline-primary
-                />
-                Professor*
-              </label>
-            </div>
+          <div className="btn-group" role="group" aria-label="Tipo de Usuário">
+            <input
+              className="btn-check"
+              type="radio"
+              id="usuarioComum"
+              autoComplete="off"
+              value="usuarioComum"
+              checked={userType === 'usuarioComum'}
+              onChange={handleUserTypeChange}
+            />
+            <label className="btn btn-outline-primary" htmlFor="usuarioComum">Usuário Comum</label>
 
-            <div className="col-2">
-              <label className='btn btn-outline-primary'>
-                <input
-                 className="custom-radio-input"
-                  type="radio"
-                  value="diretor"
-                  checked={userType === 'diretor'}
-                  onChange={handleUserTypeChange} btn btn-outline-primary
-                />
-                Diretor*
-              </label>
-            </div>
+            <input
+              className="btn-check"
+              type="radio"
+              id="aluno"
+              autoComplete="off"
+              value="aluno"
+              checked={userType === 'aluno'}
+              onChange={handleUserTypeChange}
+            />
+            <label className="btn btn-outline-primary" htmlFor="aluno">Aluno</label>
 
+            <input
+              className="btn-check"
+              type="radio"
+              id="professor"
+              autoComplete="off"
+              value="professor"
+              checked={userType === 'professor'}
+              onChange={handleUserTypeChange}
+            />
+            <label className="btn btn-outline-primary" htmlFor="professor">Professor</label>
 
-
+            <input
+              className="btn-check"
+              type="radio"
+              id="diretor"
+              autoComplete="off"
+              value="diretor"
+              checked={userType === 'diretor'}
+              onChange={handleUserTypeChange}
+            />
+            <label className="btn btn-outline-primary" htmlFor="diretor">Diretor</label>
           </div>
-          <div className="row">
+
+          <br /><br /><br />
+
+          <div className="row justify-content-center">
             {action === 'Login' ? (
               <>
                 <div className="row justify-content-center">
@@ -248,17 +258,17 @@ const SignInUp = () => {
                   </>
                 )}
                 {userType === 'diretor' && (
-                    <SignUpDiretor
-                      unidade={unidade}
-                      setUnidade={setUnidade}
-                      emailInstitucional={emailInstitucional}
-                      setEmailInstitucional={setEmailInstitucional}
-                    />
+                  <SignUpDiretor
+                    unidade={unidade}
+                    setUnidade={setUnidade}
+                    emailInstitucional={emailInstitucional}
+                    setEmailInstitucional={setEmailInstitucional}
+                  />
                 )}
               </>
             )}
             <div className="d-flex gap-3 justify-content-center loginRegisterbtn">
-              <div className={action === 'Login' ? 'btn btn-lg btn-outline-secondary' : 'btn btn-lg btn-success'}
+              <div data-bs-toggle="modal" data-bs-target="#staticBackdrop" className={action === 'Login' ? 'btn btn-lg btn-outline-secondary' : 'btn btn-lg btn-success'}
                 onClick={() => {
                   if (action === 'Cadastrar') {
                     handleFormSubmit();
@@ -283,10 +293,24 @@ const SignInUp = () => {
                 Entrar
               </div>
             </div>
+
+<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        {isLoading && <div className="spinner-border" role="status"></div>}
+        {showModalContent && !isLoading && (registrationStatus === 'success' ? 'Conta criada com sucesso.' : 'Erro durante a operação.')}
+        <br />Agora só precisa validar pelo e-mail que você recebeu!
+      </div>
+      <div class="modal-footer justify-content-center">
+      <button type="button" class="btn btn-primary" onClick={refreshPage} >Continuar</button>
+      </div>
+    </div>
+  </div>
+</div>
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

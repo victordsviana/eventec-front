@@ -7,7 +7,7 @@ const SignUpBasicInfo = ({
     password, setPassword 
   }) => {
     return (
-      <div className="col-4">
+      <div className="col-3">
         <div className="d-flex justify-content-start">
           <h3>Informações básicas</h3>
         </div>

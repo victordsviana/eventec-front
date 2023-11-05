@@ -1,3 +1,21 @@
+.gradient-background {
+    background: linear-gradient(300deg,#ffffff,#304151,#000000,#ab0200);
+    background-size: 240% 240%;
+    animation: gradient-animation 10s ease infinite;
+  }
+  
+  @keyframes gradient-animation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
 .logoNavbar {
     margin-top: 30px;
     background: black;
@@ -66,8 +84,7 @@
 }
 
 .formStyle{
-    border: 1px solid black;
-    border-radius: 8px;
+    background: #f6f6f6;
 }
 
 .user-type-input{
