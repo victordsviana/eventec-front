@@ -72,7 +72,7 @@ const DiretorMyAccount = () => {
         <><LoggedNavbar/>
         <div className="container-bg">
             <div className='container'>
-                <div className="row">
+                <div className="row justify-content-center">
                     <div className="col-12 col-lg-6">
                         <h2>Eventos para aprovar:</h2>
                         {pendingEventsData.map((event, index) => (

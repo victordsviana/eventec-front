@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import LoggedNavbar from './LoggedNavbar';
 import CardEvent from '../components/CardEvent';
+import Footer from '../components/Footer';
 
 
 const haversineDistance = (lat1, lon1, lat2, lon2) => {
@@ -130,11 +131,12 @@ const AllEvents = () => {
   return (
     <>
       <LoggedNavbar />
+      <div className="container-bg">
       <div className="container">
         <div className="d-flex justify-content-">
-          <h2>Esses são todos os eventos disponiveis</h2>
+          <h3>Confira os eventos disponíveis</h3>
         </div>
-      </div>
+      
       <br /><br /><br />
       <div className='container'>
         <div className="row">
@@ -158,7 +160,8 @@ const AllEvents = () => {
           </div>
         </div>
       </div>
-    </>
+      </div>
+      <Footer/></div></>
   )
 }
 

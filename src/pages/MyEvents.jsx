@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import HomeNavbar from '../components/HomeNavbar';
+import LoggedNavbar from './LoggedNavbar';
+import Footer from '../components/Footer';
 
 const MyEvents = () => {
     const [myEvents, setMyEvents] = useState([]);
@@ -39,7 +40,9 @@ const MyEvents = () => {
         fetchAllSubscribedEvents();
     }, []);
     return (
-        <><HomeNavbar /><div className='container'>
+        <><LoggedNavbar />
+        <div className="container-bg">
+        <div className='container'>
             <h1>Eventos</h1>
             <div className="row">
                 {myEvents.map(subscription => (
@@ -69,7 +72,7 @@ const MyEvents = () => {
                 ))}
             </div>
             <br /><br />
-        </div></>
+        </div><Footer/></div></>
     );
 };
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import HomeNavbar from '../components/HomeNavbar';
+import LoggedNavbar from './LoggedNavbar';
+import Footer from '../components/Footer';
 import axios from 'axios';
 
 const MyCertifications = () => {
@@ -18,10 +19,8 @@ const MyCertifications = () => {
     };
 
     useEffect(() => {
-        // Recupere o userId do localStorage
         const userid = localStorage.getItem('userid');
 
-        // Função para buscar os certificados
         const fetchCertificates = async () => {
             try {
                 const response = await axios.get(`http://localhost:8080/api/certifications/user/${userid}`);
@@ -36,13 +35,13 @@ const MyCertifications = () => {
             }
         };
 
-        // Chame a função para buscar os certificados
         fetchCertificates();
     }, []);
 
     return (
         <>
-            <HomeNavbar />
+            <LoggedNavbar />
+            <div className="container-bg">
             <div className="container">
                 <div className="row">
                     {certificates.map((certificate, index) => (
@@ -59,7 +58,7 @@ const MyCertifications = () => {
                         </div>
                     ))}
                 </div>
-            </div>
+            </div><Footer/></div>
         </>
     );
 }
