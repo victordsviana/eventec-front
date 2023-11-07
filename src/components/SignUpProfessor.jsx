@@ -4,7 +4,7 @@ const SignUpProfessor = ({ setUnidade, unidade, emailInstitucional, setEmailInst
     return (
       <div className="col-3">
         <div className="d-flex justify-content-start">
-          <h3>Informações adicionais</h3>
+          <h4>Informações adicionais</h4>
         </div>
         <div className="form-floating mb-3">
                     <select className='form-select'

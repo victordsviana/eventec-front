@@ -14,10 +14,14 @@ const MyAccount = () => {
   const [newPassword, setNewPassword] = useState('');
   const [changePasswordError, setChangePasswordError] = useState(null);
   const [showPasswordFields, setShowPasswordFields] = useState(false);
+  const [mostSubscribedEvents, setMostSubscribedEvents] = useState([]);
+
 
   const [userid] = useState('');
   localStorage.setItem('userid', userInfo.userid);
   localStorage.setItem('userName', userInfo.userName)
+  localStorage.setItem('userType', userInfo.userType)
+  localStorage.setItem('emailValidationType', userInfo.emailValidationType)
 
 
   const handleChangePassword = async () => {
@@ -73,6 +77,8 @@ const MyAccount = () => {
     }
   };
 
+
+
   useEffect(() => {
     const userid = localStorage.getItem('userid')
     const email = localStorage.getItem('userEmail');
@@ -95,175 +101,224 @@ const MyAccount = () => {
     consult()
   }, [])
 
+  useEffect(() => {
+    const fetchMostSubscribedEvents = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/subscriptions/most-subscribed-events');
+        if (response.ok) {
+          const data = await response.json();
+          const eventsArray = Object.keys(data).map(key => ({ title: key, description:key, count: data[key] }));
+          eventsArray.sort((a, b) => b.count - a.count);
+          const top3Events = eventsArray.slice(0, 3);
+          setMostSubscribedEvents(top3Events);
+        } else {
+          console.error('Erro ao buscar eventos mais inscritos');
+        }
+      } catch (error) {
+        console.error('Erro ao buscar eventos mais inscritos:', error);
+      }
+    };
+
+    fetchMostSubscribedEvents();
+  }, []);
+
   return (
     <><LoggedNavbar /><>
-    <div className="container-bg">
-    <div className="container" style={{minHeight: "80vh"}}>
-      <div className="row justify-content-between ">
-        <div className="col-lg-6 col-xl-3 myAccountBox">
-
-          <div className="d-flex align-items-center flex-column justify-content-between menuContainer">
-          <div className="">
-            <img src={profileIcon} class="img-thumbnail" style={{ maxWidth: "50%" }} />
-            <br /><br />
-            <h5>Olá, {userInfo?.userName || 'Nome não disponível'}! </h5>
-            </div>
-            <div className="d-grid gap-3">
-              <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#changePassword">
-                Trocar de senha
-              </button>
-
-
-              <button type='submit' className='btn btn-danger' data-bs-toggle="modal" data-bs-target="#deleteAccount">
-                EXCLUIR CONTA
-              </button>
-            </div>
+      <div className="container-bg">
+        <div className="container" style={{ minHeight: "80vh" }}>
+          <br /><br />
+          <div className="row">
+            <h4 className='text-start'>Eventos mais populares 🔥🔥🔥🔥</h4><br /><br /><br />
+            <div className="row">
+              {Array.isArray(mostSubscribedEvents) && mostSubscribedEvents.length > 0 ? (
+                mostSubscribedEvents.map((event, index) => (
+                  <div key={index} className="col-12 col-xl-4">
+                    <div className="event-card">
+                      <div class="card" style={{ minWidth: "25rem" }}>
+                        <div class="card-body">
+                          <h5 class="card-title">{event.title}</h5>
+                          <p class="card-text">Inscrições: {event.count}</p>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                    ))
+                    ) : (
+                    <p>Nenhum evento mais inscrito disponível.</p>
+                )}
+                  </div>
           </div>
+            <br />
+            <hr />
+            <br />
+            <div className="row justify-content-between ">
+              <div className="col-lg-6 col-xl-3 myAccountBox">
 
-        </div>
+                <div className="d-flex align-items-center flex-column justify-content-between menuContainer">
+                  <div className="">
+                    <img src={profileIcon} class="img-thumbnail" style={{ maxWidth: "50%" }} />
+                    <br /><br />
+                    <h5>Olá, {userInfo?.userName || 'Nome não disponível'}! </h5>
+                  </div>
+                  <div className="d-grid gap-3">
+                    <button type="button" className="btn btn-warning" data-bs-toggle="modal" data-bs-target="#changePassword">
+                      Trocar de senha
+                    </button>
 
-        <div className='col-lg-6 col-xl-4 myAccountBox'>
-          <div className="modal fade" id="changePassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h1 className="modal-title fs-5" id="exampleModalLabel">Troca de senha</h1>
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                    <button type='submit' className='btn btn-danger' data-bs-toggle="modal" data-bs-target="#deleteAccount">
+                      EXCLUIR CONTA
+                    </button>
+                  </div>
                 </div>
-                <div className="modal-body">
-                  <form>
-                    <label className='form-label'>Confirmar Senha Atual:</label>
-                    <input className='form-control' type='password' id='currentPassword' />
 
-                    <label className='form-label'>Nova Senha:</label>
-                    <input className='form-control' type='password' id='newPassword' />
+              </div>
 
-                    <label className='form-label'>Confirmar Nova Senha:</label>
-                    <input className='form-control' type='password' id='confirmNewPassword' />                    </form>
+              <div className='col-lg-6 col-xl-4 myAccountBox'>
+                <div className="modal fade" id="changePassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h1 className="modal-title fs-5" id="exampleModalLabel">Troca de senha</h1>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div className="modal-body">
+                        <form>
+                          <label className='form-label'>Confirmar Senha Atual:</label>
+                          <input className='form-control' type='password' id='currentPassword' />
 
+                          <label className='form-label'>Nova Senha:</label>
+                          <input className='form-control' type='password' id='newPassword' />
+
+                          <label className='form-label'>Confirmar Nova Senha:</label>
+                          <input className='form-control' type='password' id='confirmNewPassword' />                    </form>
+
+                      </div>
+                      <div className="modal-footer">
+                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type='submit' className="changePasswordBtn btn btn-primary" onClick={handleChangePassword}>Salvar</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                  <button type='submit' className="changePasswordBtn btn btn-primary" onClick={handleChangePassword}>Salvar</button>
+
+
+                <div className="modal fade" id="deleteAccount" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div className="modal-dialog">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h1 className="modal-title fs-5" id="exampleModalLabel">Excluir conta</h1>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div className="modal-body">
+                        <h3>Deseja realmente excluir a conta?</h3>
+                        <br />
+                        <button type='submit' className='btn btn-outline-danger' data-bs-toggle="modal" data-bs-target="#deleteAccount" onClick={handleDeleteAccount}>
+                          Quero excluir a conta.
+                        </button>
+                      </div>
+                      <div className="modal-footer">
+                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
+
+                <div className='d-flex justify-content-between'>
+
+                  <h5 className='d-none'>{userInfo.userid}</h5>
+                </div>
+                <form className='formContainer'>
+                  <div className="form-floating mb-3">
+                    <input className='form-control' type="text" placeholder='Nome' value={userInfo?.userName || ''} disabled />
+                    <label className='form-label'>Nome:</label>
+                  </div>
+
+                  <div className="form-floating mb-3">
+                    <input className='form-control' type="text" value={userInfo?.email || ''} placeholder='E-mail' disabled />
+                    <label className='form-label'>E-Mail:</label>
+                  </div>
+
+                  <div className="form-floating mb-3">
+                    <input className='form-control' type="text" placeholder='CPF' value={userInfo?.cpf || ''} disabled />
+                    <label className='form-label'>CPF:</label>
+                  </div>
+
+                  <div className={`form-floating mb-3 ${!userInfo.emailInstitucional ? 'd-none' : ''}`}>
+                    <input className='form-control' type="text" placeholder='E-mail Institucional' value={userInfo?.emailInstitucional || 'N/A'} disabled />
+                    <label className='form-label'>E-Mail Institucional:</label>
+                  </div>
+
+                  <div className={`form-floating mb-3 ${!userInfo.ra ? 'd-none' : ''}`}>
+                    <input className='form-control' type="text" value={userInfo?.ra || 'N/A'} placeholder='RA' disabled />
+                    <label className='form-label'>RA:</label>
+                  </div>
+
+                  <div className={`form-floating mb-3 ${!userInfo.semestre ? 'd-none' : ''}`}>
+                    <input className='form-control' type="text" value={userInfo?.semestre || 'N/A'} placeholder='Semestre' disabled />
+                    <label className='form-label'>Semestre:</label>
+                  </div>
+
+                  <div className={`form-floating mb-3 ${!userInfo.unidade ? 'd-none' : ''}`}>
+                    <input className='form-control' type="text" value={userInfo?.unidade || 'N/A'} placeholder='Instituição de Ensino' disabled />
+                    <label className='form-label'>Instituição de Ensino:</label>            </div>
+
+                  <div className={`form-floating mb-3 ${!userInfo.curso ? 'd-none' : ''}`}>
+                    <input className='form-control' type="text" value={userInfo?.curso || 'N/A'} placeholder='Curso' disabled />
+                    <label className='form-label'>Curso:</label>
+                  </div>
+
+                  <div className="form-floating mb-3">
+                    <input className='form-control' type="password" value={userInfo?.password || ''} disabled />
+                    <label className='form-label'>Senha:</label>
+                  </div>
+
+
+                </form>
+              </div>
+
+              <div className='col-lg-12 col-xl-4 myAccountBox'>
+
+                <div className='d-flex justify-content-between'>
+                  <h5>Seu endereço: </h5>
+                  <h5></h5>
+                </div>
+                <form className='formContainer'>
+                  <div className="form-floating mb-3">
+                    <input className='form-control' type="text" placeholder='zipCode' value={userInfo?.zipCode || ''} disabled />
+                    <label className='form-label'>CEP:</label>
+                  </div>
+
+                  <div className="form-floating mb-3">
+                    <input className='form-control' type="text" value={userInfo?.street || ''} placeholder='street' disabled />
+                    <label className='form-label'>Endereço:</label>
+                  </div>
+
+                  <div className="form-floating mb-3">
+                    <input className='form-control' type="text" placeholder='Estado' value={userInfo?.state || ''} disabled />
+                    <label className='form-label'>Estado:</label>
+                  </div>
+
+                  <div className="form-floating mb-3">
+                    <input className='form-control' type="text" placeholder='Bairro' value={userInfo?.neighborhood || 'N/A'} disabled />
+                    <label className='form-label'>Bairro:</label>
+                  </div>
+
+                  <div className="form-floating mb-3">
+                    <input className='form-control' type="text" value={userInfo?.RA || 'N/A'} placeholder='Cidade' disabled />
+                    <label className='form-label'>Cidade:</label>
+                  </div>
+
+                </form>
               </div>
             </div>
-          </div>
 
-
-          <div className="modal fade" id="deleteAccount" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h1 className="modal-title fs-5" id="exampleModalLabel">Excluir conta</h1>
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className="modal-body">
-                  <h3>Deseja realmente excluir a conta?</h3>
-                  <br />
-                  <button type='submit' className='btn btn-outline-danger' data-bs-toggle="modal" data-bs-target="#deleteAccount" onClick={handleDeleteAccount}>
-                    Quero excluir a conta.
-                  </button>
-                </div>
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-          <div className='d-flex justify-content-between'>
-            
-            <h5 className='d-none'>{userInfo.userid}</h5>
-          </div>
-          <form className='formContainer'>
-            <div className="form-floating mb-3">
-              <input className='form-control' type="text" placeholder='Nome' value={userInfo?.userName || ''} disabled />
-              <label className='form-label'>Nome:</label>
-            </div>
-
-            <div className="form-floating mb-3">
-              <input className='form-control' type="text" value={userInfo?.email || ''} placeholder='E-mail' disabled />
-              <label className='form-label'>E-Mail:</label>
-            </div>
-
-            <div className="form-floating mb-3">
-              <input className='form-control' type="text" placeholder='CPF' value={userInfo?.cpf || ''} disabled />
-              <label className='form-label'>CPF:</label>
-            </div>
-
-            <div className={`form-floating mb-3 ${!userInfo.emailInstitucional ? 'd-none' : ''}`}>
-              <input className='form-control' type="text" placeholder='E-mail Institucional' value={userInfo?.emailInstitucional || 'N/A'} disabled />
-              <label className='form-label'>E-Mail Institucional:</label>
-            </div>
-
-            <div className={`form-floating mb-3 ${!userInfo.ra ? 'd-none' : ''}`}>
-              <input className='form-control' type="text" value={userInfo?.ra || 'N/A'} placeholder='RA' disabled />
-              <label className='form-label'>RA:</label>
-            </div>
-
-            <div className={`form-floating mb-3 ${!userInfo.semestre ? 'd-none' : ''}`}>
-              <input className='form-control' type="text" value={userInfo?.semestre || 'N/A'} placeholder='Semestre' disabled />
-              <label className='form-label'>Semestre:</label>
-            </div>
-
-            <div className={`form-floating mb-3 ${!userInfo.unidade ? 'd-none' : ''}`}>
-              <input className='form-control' type="text" value={userInfo?.unidade || 'N/A'} placeholder='Instituição de Ensino' disabled />
-              <label className='form-label'>Instituição de Ensino:</label>            </div>
-
-            <div className={`form-floating mb-3 ${!userInfo.curso ? 'd-none' : ''}`}>
-              <input className='form-control' type="text" value={userInfo?.curso || 'N/A'} placeholder='Curso' disabled />
-              <label className='form-label'>Curso:</label>
-            </div>
-
-            <div className="form-floating mb-3">
-              <input className='form-control' type="password" value={userInfo?.password || ''} disabled />
-              <label className='form-label'>Senha:</label>
-            </div>
-
-
-          </form>
-        </div>
-
-        <div className='col-lg-12 col-xl-4 myAccountBox'>
-
-          <div className='d-flex justify-content-between'>
-            <h5>Seu endereço: </h5>
-            <h5></h5>
-          </div>
-          <form className='formContainer'>
-            <div className="form-floating mb-3">
-              <input className='form-control' type="text" placeholder='zipCode' value={userInfo?.zipCode || ''} disabled />
-              <label className='form-label'>CEP:</label>
-            </div>
-
-            <div className="form-floating mb-3">
-              <input className='form-control' type="text" value={userInfo?.street || ''} placeholder='street' disabled />
-              <label className='form-label'>Endereço:</label>
-            </div>
-
-            <div className="form-floating mb-3">
-              <input className='form-control' type="text" placeholder='Estado' value={userInfo?.state || ''} disabled />
-              <label className='form-label'>Estado:</label>
-            </div>
-
-            <div className="form-floating mb-3">
-              <input className='form-control' type="text" placeholder='Bairro' value={userInfo?.neighborhood || 'N/A'} disabled />
-              <label className='form-label'>Bairro:</label>
-            </div>
-
-            <div className="form-floating mb-3">
-              <input className='form-control' type="text" value={userInfo?.RA || 'N/A'} placeholder='Cidade' disabled />
-              <label className='form-label'>Cidade:</label>
-            </div>
-
-          </form>
-        </div>
-      </div>
-    </div><Footer /></div></></>
-  );
+          </div><Footer /></div></></>
+      );
 }
 
-export default MyAccount;
+
+
+      export default MyAccount;

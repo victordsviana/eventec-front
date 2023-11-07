@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Footer from '../components/Footer';
+import LoggedNavbar from './LoggedNavbar';
 
 const DiretorMyAccount = () => {
 
@@ -59,18 +60,17 @@ const DiretorMyAccount = () => {
 
                 <span>Localização: </span>
                 <span>{event.address}</span>
-                <span>Distância: {typeof event.distance === 'number' ? event.distance.toFixed(2) : 'N/A'} km</span>
+                <br />
+                <span>Data e horário: </span>
                 <input type="datetime-local" value={event.date} disabled />
                 <br />
-                <a href="#" className="btn btn-primary">
-                    Inscrever-se
-                </a>
             </div>
         </div>
     );
 
     return (
-        <>
+        <><LoggedNavbar/>
+        <div className="container-bg">
             <div className='container'>
                 <div className="row">
                     <div className="col-12 col-lg-6">
@@ -78,23 +78,17 @@ const DiretorMyAccount = () => {
                         {pendingEventsData.map((event, index) => (
                             <div key={event.id}>
                                 {renderEvent(event)}
+                                <div className="container eventDecision">
                                 <div className="d-flex justify-content-between mb-3">
                                     <button className='btn btn-danger'>Reprovar</button>
                                     <button className='btn btn-success' onClick={() => handleApprove(event.id)}>Aprovar</button>
                                 </div>
                             </div>
-                        ))}
-                    </div>
-                    <div className="col-12 col-lg-6">
-                        <h2>Eventos aprovados:</h2>
-                        {approvedEventsData.map((event, index) => (
-                            <div key={event.id}>
-                                {renderEvent(event)}
                             </div>
                         ))}
                     </div>
                 </div>
-            </div>
+            </div></div>
             <Footer />
         </>
     );

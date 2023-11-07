@@ -8,6 +8,7 @@ const CreateEvents = () => {
   const [category, setCategory] = useState('');
   const [address, setAddress] = useState('');
   const [dateEvent, setDateEvent] = useState('');
+  const [abertoPublico, setAbertoPublico] = useState('');
   const [addressLat, setAddressLat] = useState(null);
   const [addressLng, setAddressLng] = useState(null);
 
@@ -16,7 +17,7 @@ const CreateEvents = () => {
       lat: "-23.673137600203077",
       lng: "-46.618749338635425"
     },
-    
+
     "Fatec São Bernardo do Campo – Adib Moises Dib - Endereço: Av. Pereira Barreto, 400 - Vila Baeta Neves - Centro, São Bernardo do Campo - SP, 09751-000": {
       lat: "-23.694777324719173",
       lng: "-46.54586438522398"
@@ -53,7 +54,8 @@ const CreateEvents = () => {
         user: {
           email: userEmail,
           password: userPassword
-        }
+        },
+        abertoPublico
       });
       console.log('Registration Successful', response.data);
       //location.reload()
@@ -65,7 +67,7 @@ const CreateEvents = () => {
   return (
     <>
       <form action="" className="d-grid gap-3">
-        <h1>Crie um novo evento</h1>
+        <h4>Crie um novo evento</h4>
         <div className="form-group">
           <label htmlFor="titulo">Título</label>
           <input type="text" className="form-control" id="title" placeholder="Digite o título" value={title} onChange={(e) => setTitle(e.target.value)} />
@@ -76,7 +78,7 @@ const CreateEvents = () => {
           <textarea className="form-control" id="description" rows="3" placeholder="Digite a descrição" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
         </div>
 
-        <div className="form-group">
+        <div className="form-group">categoria
           <label htmlFor="categoria">Categoria</label>
           <select className="form-control" id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
             <option value="tecnologia">Tecnologia</option>
@@ -88,13 +90,42 @@ const CreateEvents = () => {
         <div className="row">
           <div className="col-6 form-group">
             <label htmlFor="data">Data e hora do evento</label>
-            <input type="datetime-local" className="form-control" id="data" value={dateEvent}  onChange={(e) => setDateEvent(e.target.value)}/>
+            <input type="datetime-local" className="form-control" id="data" value={dateEvent} onChange={(e) => setDateEvent(e.target.value)} />
           </div>
           <div className="col-6 openEventInput">
             <div className="form-check form-switch open">
-              <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
-              <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Aberto ao público?</label>
+              <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked={abertoPublico} onChange={(e) => setAbertoPublico(e.target.checked)} />
+              <label className="form-check-label" htmlFor="flexSwitchCheckDefault" id='abertoPublico'>Aberto ao público?</label>
             </div>
+          </div>
+        </div>
+
+        <div className="form-group">
+          <div class="form-floating">
+            <select class="form-select" id="floatingSelect" aria-label="Você está criando um evento ou curso?">
+              <option value="" disabled selected>Escolha uma opção</option>
+              <option value="" disabled>Curso (em breve!)</option>
+              <option value="evento">Evento</option>
+            </select>
+            <label for="floatingSelect">Você está criando um evento ou curso?</label>
+          </div>
+        </div>
+
+        <div className="form-group">
+          <div class="form-floating">
+            <select class="form-select" id="floatingSelect" aria-label="modalidade">
+              <option value="" disabled selected>Escolha uma modalidade</option>
+              <option value="remoto" disabled>Presencial (em breve!)</option>
+              <option value="evento">Remoto</option>
+            </select>
+            <label for="floatingSelect">Escolha a modalidade</label>
+          </div>
+        </div>
+
+        <div className="form-group">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="linkReuniao" placeholder="Link da reunião" />
+            <label for="floatingInput">Link da reunião</label>
           </div>
         </div>
 
@@ -111,7 +142,7 @@ const CreateEvents = () => {
           </select>
         </div>
         <br />
-        <div className="row justify-content-center">
+        <div className="row justify-content-start">
           <button type="submit" className="col-4 btn btn-primary" onClick={handleFormEventSubmit}>Enviar</button>
         </div>
       </form>

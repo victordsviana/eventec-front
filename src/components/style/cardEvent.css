@@ -11,3 +11,10 @@
         width: 190px
     }
 }
+
+.eventDecision {
+    background: white;
+    padding: 10px 10px 0px;
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+}

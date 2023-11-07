@@ -10,7 +10,7 @@ const SignUpAluno = ({ emailInstitucional, setEmailInstitucional,
         <>
             <div className="col-3">
                 <div className="d-flex justify-content-start">
-                    <h3>Informações adicionais</h3>
+                    <h4>Informações adicionais</h4>
                 </div>
                 <div className="form-floating mb-3">
                     <input className='form-control'

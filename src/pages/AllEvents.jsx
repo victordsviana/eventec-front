@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import HomeNavbar from '../components/HomeNavbar';
+import LoggedNavbar from './LoggedNavbar';
 import CardEvent from '../components/CardEvent';
 
 
 const haversineDistance = (lat1, lon1, lat2, lon2) => {
-  const R = 6371; // Raio da Terra em quilômetros
+  const R = 6371; 
   const dLat = (lat2 - lat1) * (Math.PI / 180);
   const dLon = (lon2 - lon1) * (Math.PI / 180);
   const a = 
@@ -22,8 +22,9 @@ const AllEvents = () => {
   const [allEvents, setAllEvents] = useState([]);
   const [userid] = useState(localStorage.getItem('userid'));
   const [userName] = useState(localStorage.getItem('userName'));
+  const [userEmail] = useState(localStorage.getItem('userEmail'));
+  const [userType] = useState(localStorage.getItem('userType'));
 
-   // Mudança aqui
 
   const getUserLocation = () => {
     if (navigator.geolocation) {
@@ -63,6 +64,21 @@ const AllEvents = () => {
     }
   }
 
+  useEffect(() => {
+    const fetchAllEvents = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/approvedEvents/${userType}`);
+        console.log(response.data); 
+        setAllEvents(response.data);
+      } catch (error) {
+        console.error('Error fetching all events', error);
+      }
+    }
+  
+    fetchAllEvents();
+  }, [userType]);
+  
+  
   useEffect(() => {
     if (userLocation) {
       const nearbyEvents = filterEventsNearby();
@@ -111,27 +127,9 @@ const AllEvents = () => {
     }
   }
 
-  useEffect(() => {
-    const fetchAllEvents = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/approvedEvents', {
-          headers: {
-            'User-Id': userid
-          }
-        });
-        setAllEvents(response.data);
-      } catch (error) {
-        console.error('Error fetching all events', error);
-      }
-    }
-
-
-    fetchAllEvents();
-  }, [userid]);
-
   return (
     <>
-      <HomeNavbar />
+      <LoggedNavbar />
       <div className="container">
         <div className="d-flex justify-content-">
           <h2>Esses são todos os eventos disponiveis</h2>

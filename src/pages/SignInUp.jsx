@@ -63,7 +63,7 @@ const SignInUp = () => {
   const handleFormSubmit = async () => {
     setIsLoading(true);
     if (action === 'Cadastrar') {
-      
+
       try {
         const response = await axios.post('http://localhost:8080/api/users/create', {
           userid,
@@ -93,10 +93,10 @@ const SignInUp = () => {
         setShowModalContent(true);
       } finally {
         setTimeout(() => {
-          setIsLoading(false); // Desativar o spinner após 2 segundos
+          setIsLoading(false); 
         }, 1000);
       }
-      
+
     } else if (action === 'Login') {
       try {
         const response = await axios.post('http://localhost:8080/login', {
@@ -294,20 +294,24 @@ const SignInUp = () => {
               </div>
             </div>
 
-<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body">
-        {isLoading && <div className="spinner-border" role="status"></div>}
-        {showModalContent && !isLoading && (registrationStatus === 'success' ? 'Conta criada com sucesso.' : 'Erro durante a operação.')}
-        <br />Agora só precisa validar pelo e-mail que você recebeu!
-      </div>
-      <div class="modal-footer justify-content-center">
-      <button type="button" class="btn btn-primary" onClick={refreshPage} >Continuar</button>
-      </div>
-    </div>
-  </div>
-</div>
+            <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    {isLoading && <div className="spinner-border" role="status"></div>}
+                    {showModalContent && !isLoading && (
+                      registrationStatus === 'success' ?
+                        'Conta criada com sucesso.\nAgora só precisa validar pelo e-mail que você recebeu!' :
+                        'Erro durante a operação.'
+                    )}
+
+                  </div>
+                  <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-primary" onClick={refreshPage} >Continuar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

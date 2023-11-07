@@ -11,7 +11,7 @@ const SignUpAddress = ({
   return (
     <div className="col-3">
       <div className="d-flex justify-content-start">
-        <h3>Endereço</h3>
+        <h4>Endereço</h4>
       </div>
       <div className="form-floating mb-3">
         <input className='form-control'

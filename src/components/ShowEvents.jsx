@@ -130,7 +130,7 @@ const ShowEvents = () => {
                 </div>
             </div>
 
-            <h1>Esses são os seus eventos criados:</h1>
+            <h4>Esses são os seus eventos criados:</h4>
             <div className="accordion" id="accordionExample">
                 {events.map(event => (
                     <div key={event.id} className="accordion-item">
