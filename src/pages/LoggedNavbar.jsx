@@ -23,7 +23,7 @@ const LoggedNavbar = () => {
               <a class="nav-item nav-link active hover-underline-animation" aria-current="page" href="/events">Eventos disponiveis</a>
               {localStorage.getItem('userType') === 'professor' || localStorage.getItem('userType') === 'diretor' ? (
               <a className="nav-item nav-link active hover-underline-animation" aria-current="page" href="/crudevent">
-                Criar eventos
+                Gerenciar Eventos
               </a>
             ) : null}
               {localStorage.getItem('userType') === 'diretor' ? (
@@ -36,7 +36,7 @@ const LoggedNavbar = () => {
 
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="/myAccount">Meus dados</a></li>
-                  <li><a class="dropdown-item" href="/myEvents">Meus eventos</a></li>
+                  <li><a class="dropdown-item" href="/myEvents">Minhas inscrições</a></li>
                   <li><a class="dropdown-item" href="/myCertifications">Meus certificados</a></li>
                   <li><hr class="dropdown-divider" /></li>
                   <li><a class="dropdown-item text-danger" href="/home">Sair</a></li>

@@ -109,9 +109,10 @@ const ShowEvents = () => {
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Concluir evento e enviar certificados</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                   
                         </div>
                         <div class="modal-body">
-                            
+                        <p class="text-danger">Apenas envie certificados para pessoas que participaram do evento.</p>
                             {eventUsers.map(user => (
                                 <div key={user.id} className="input-group mb-3">
                                     <div className="input-group-text">
