@@ -9,9 +9,8 @@ import "../components/style/home.css";
 function Homepage() {
   return (
     <div className="App">
-      <HomeNavbar/>
+      {/* <HomeNavbar/> */}
        <Hero/>
-       <hr/>
        <AboutUs/>
       <TechGrid/>
       <Team/>

@@ -17,11 +17,6 @@ const CreateEvents = () => {
       lat: "-23.673137600203077",
       lng: "-46.618749338635425"
     },
-
-    "Fatec São Bernardo do Campo – Adib Moises Dib - Endereço: Av. Pereira Barreto, 400 - Vila Baeta Neves - Centro, São Bernardo do Campo - SP, 09751-000": {
-      lat: "-23.694777324719173",
-      lng: "-46.54586438522398"
-    },
   };
 
   const handleAddressChange = (e) => {
@@ -69,18 +64,16 @@ const CreateEvents = () => {
       <form action="" className="d-grid gap-3">
         <h4>Crie um novo evento</h4>
         <div className="form-group">
-          <label htmlFor="titulo">Título</label>
-          <input type="text" className="form-control" id="title" placeholder="Digite o título" value={title} onChange={(e) => setTitle(e.target.value)} />
+          <input type="text" className="form-control" id="title" placeholder="Digite o título do seu evento" value={title} onChange={(e) => setTitle(e.target.value)} />
         </div>
 
         <div className="form-group">
-          <label htmlFor="descricao">Descrição</label>
-          <textarea className="form-control" id="description" rows="3" placeholder="Digite a descrição" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+          <textarea className="form-control" id="description" rows="3" placeholder="Digite a descrição do seu evento" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
         </div>
 
-        <div className="form-group">categoria
-          <label htmlFor="categoria">Categoria</label>
+        <div className="form-group">
           <select className="form-control" id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+          <option value="" disabled>Qual é a categoria do seu evento?</option>
             <option value="tecnologia">Tecnologia</option>
             <option value="financas">Finanças</option>
             <option value="comunicacao">Comunicação</option>
@@ -94,8 +87,8 @@ const CreateEvents = () => {
           </div>
           <div className="col-6 openEventInput">
             <div className="form-check form-switch open">
-              <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked={abertoPublico} onChange={(e) => setAbertoPublico(e.target.checked)} />
-              <label className="form-check-label" htmlFor="flexSwitchCheckDefault" id='abertoPublico'>Aberto ao público?</label>
+              <input className="form-check-input" type="checkbox" style={{marginTop: 27}} id="flexSwitchCheckDefault" checked={abertoPublico} onChange={(e) => setAbertoPublico(e.target.checked)} />
+              <label className="form-check-label" htmlFor="flexSwitchCheckDefault" style={{marginTop: 22}} id='abertoPublico'>Evento aberto ao público geral?</label>
             </div>
           </div>
         </div>
@@ -122,27 +115,26 @@ const CreateEvents = () => {
           </div>
         </div>
 
-        <div className="form-group">
+        <div className="form-group" style={{maxHeight: '60px'}}>
           <div class="form-floating mb-3">
             <input type="text" class="form-control" id="linkReuniao" placeholder="Link da reunião" />
-            <label for="floatingInput">Link da reunião</label>
+            <label for="floatingInput">Link da reunião do evento (Teams, Zoom etc.)</label>
           </div>
         </div>
 
         <div className="form-group">
-          <label htmlFor="endereço">Endereço</label>
           <select type="text" className="form-control" id="address" value={address} onChange={handleAddressChange}>
-            <option value="" disabled>Selecione uma Fatec</option>
+            <option value="" disabled>Selecione a Fatec onde será realizado o evento</option>
             <option value="Fatec Diadema - Luigi Papaiz - Endereço: Av. Luiz Merenda, 443 - Campanário, Diadema - SP, 09931-390">
               Fatec Diadema - Luigi Papaiz - Endereço: Av. Luiz Merenda, 443 - Campanário, Diadema - SP, 09931-390
             </option>
-            <option value="Fatec São Bernardo do Campo – Adib Moises Dib - Endereço: Av. Pereira Barreto, 400 - Vila Baeta Neves - Centro, São Bernardo do Campo - SP, 09751-000">
-              Fatec São Bernardo do Campo – Adib Moises Dib - Endereço: Av. Pereira Barreto, 400 - Vila Baeta Neves - Centro, São Bernardo do Campo - SP, 09751-000
+            <option value="" disabled>
+              Não encontrou sua Fatec na lista? Fale com o seu diretor sobre a implantação do Eventec na sua Fatec!
             </option>
           </select>
         </div>
         <br />
-        <div className="row justify-content-start">
+        <div className="row justify-content-center">
           <button type="submit" className="col-4 btn btn-primary" onClick={handleFormEventSubmit}>Enviar</button>
         </div>
       </form>

@@ -6,8 +6,14 @@
 
 .membersCard {
     display: flex;
-    justify-content: space-evenly;
-    margin-top: 100px;
+    margin-top: 50px;
+    justify-content: center;
+    gap: 110px;
+    flex-wrap: wrap;
+}
+
+.cardImage {
+    margin-bottom: 25px;
 }
 
 .cardName{
@@ -16,4 +22,13 @@
 
 .TeamContainer {
     margin: 10%;
+    margin-top: 50px;
+    margin-bottom: 80px;
+}
+
+.cardContent {
+    border: 1px solid black;
+    padding: 48px;
+    width: 200px;
+    border-radius: 10px;
 }

@@ -1,11 +1,11 @@
 import React from 'react'
-import slotImage from '../static/aboutusslotimage.webp'
+import slotImage from '../assets/images/gratis.png'
 const AboutUsSlot = () => {
   return (
     <div>
-        <img src={slotImage} width='300px' height='180' alt=''/>
-        <h2>Lorem Ipsum Lorem Ipsum</h2>
-        <p> ipsum ipsum ipsum ipsum ipsum ipsum ipsum ipsum ipsum ipsum ipsum ipsum</p>
+        <img src={slotImage} width='180px' height='180px' alt=''/>
+        <h2>Gratuito</h2>
+        <p>O Eventec é, e sempre será <b>gratuito</b>. Jamais cobraremos pelos nossos serviços</p>
     </div>
   )
 }

@@ -1,13 +1,10 @@
-.slotContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2%;
-
-}
 
 .aboutUsContainer {
     margin: 115px 0px;
+}
+
+.aboutText{
+    margin-bottom: 100px;
 }
 
 .aboutUsBtnsBox{

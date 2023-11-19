@@ -23,7 +23,7 @@ const Team = () => {
   return (
     <div className='TeamContainer'>
       <div>
-        <h1 id='teamId'>Nossa Equipe</h1>
+        <h2 id='teamId'>Nossa Equipe</h2>
       </div>
         <div className='membersCard'>
           {teamMembers.map((member, index) => (

@@ -127,8 +127,13 @@ const MyAccount = () => {
       <div className="container-bg">
         <div className="container" style={{ minHeight: "80vh" }}>
           <br /><br />
+            <div className='d-flex justify-content-between'>
+                <h4 style={{alignSelf: 'end'}} className='text-start'>Eventos mais populares 🔥🔥🔥🔥</h4>
+                <a class="btn btn-lg btn-outline-danger" aria-current="page" href="/events">Eventos disponiveis</a>
+            </div>
+            <hr />
           <div className="row">
-            <h4 className='text-start'>Eventos mais populares 🔥🔥🔥🔥</h4><br /><br /><br />
+             <br /><br /><br />
             <div className="row">
               {Array.isArray(mostSubscribedEvents) && mostSubscribedEvents.length > 0 ? (
                 mostSubscribedEvents.map((event, index) => (

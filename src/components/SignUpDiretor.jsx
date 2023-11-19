@@ -13,10 +13,11 @@ const SignUpDiretor = ({ setUnidade, unidade, emailInstitucional, setEmailInstit
                         value={unidade}
                         onChange={(e) => setUnidade(e.target.value)}
                     >
-                        <option value="Fatec São Bernardo do Campo – Adib Moises Dib - Endereço: Av. Pereira Barreto, 400 - Vila Baeta Neves - Centro, São Bernardo do Campo - SP, 09751-000">Fatec São Bernardo do Campo</option>
-                        <option value="Fatec Diadema - Luigi Papaiz - Endereço: Av. Luiz Merenda, 443 - Campanário, Diadema - SP, 09931-390">Fatec Diadema</option>
+                      <option value="" disabled>Selecione a sua unidade</option>
+                        <option value="Fatec Diadema - Luigi Papaiz - Endereço: Av. Luiz Merenda, 443 - Campanário, Diadema - SP, 09931-390">Fatec Diadema - Luigi Papaiz</option>
+                        <option value="" disabled>Não encontrou sua Fatec na lista? Implante o Eventec na sua Fatec!</option>
                     </select>
-                    <label className='form-label' htmlhtmlFor="unidade">Instituição de Ensino*</label>
+                    <label className='form-label' htmlhtmlFor="unidade">Unidade*</label>
                 </div>
         <div className="form-floating mb-3">
           <input className='form-control'
@@ -26,7 +27,7 @@ const SignUpDiretor = ({ setUnidade, unidade, emailInstitucional, setEmailInstit
             onChange={(e) => setEmailInstitucional(e.target.value)} 
             placeholder='E-mail Institucional'
           />
-          <label className='form-label' htmlFor="emailInstitucional">E-mail Institucional*</label>
+          <label className='form-label' htmlFor="emailInstitucional">E-mail Fatec*</label>
         </div>
       </div>
     );

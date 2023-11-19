@@ -20,7 +20,7 @@ const SignUpAluno = ({ emailInstitucional, setEmailInstitucional,
                         onChange={(e) => setEmailInstitucional(e.target.value)}
                         placeholder='Email institucional'
                     />
-                    <label className='form-label' htmlhtmlFor="emailInstitucional">E-mail Instituição*</label>
+                    <label className='form-label' htmlhtmlFor="emailInstitucional">E-mail Fatec*</label>
                 </div>
 
                 <div className="form-floating mb-3">
@@ -52,10 +52,11 @@ const SignUpAluno = ({ emailInstitucional, setEmailInstitucional,
                         value={unidade}
                         onChange={(e) => setUnidade(e.target.value)}
                     >
-                        <option value="Fatec São Bernardo do Campo">Fatec São Bernardo do Campo</option>
-                        <option value="Fatec Diadema">Fatec Diadema</option>
+                        <option value="" disabled>Selecione a sua unidade</option>
+                        <option value="Fatec Diadema">Fatec Diadema - Luigi Papaiz</option>
+                        <option value="" disabled>Não encontrou sua Fatec na lista? Fale com o seu diretor sobre a implantação do Eventec na sua Fatec!</option>
                     </select>
-                    <label className='form-label' htmlhtmlFor="unidade">Instituição de Ensino*</label>
+                    <label className='form-label' htmlhtmlFor="unidade">Unidade</label>
                 </div>
 
                 <div className="form-floating mb-3">
@@ -65,8 +66,10 @@ const SignUpAluno = ({ emailInstitucional, setEmailInstitucional,
                         value={curso}
                         onChange={(e) => setCurso(e.target.value)}
                     >
+                        <option value="" disabled>Selecione o seu curso</option>
                         <option value="Desenvolvimento de Software Multiplataforma">Desenvolvimento de Software Multiplataforma</option>
                         <option value="Gestão da Produção Industrial">Gestão da Produção Industrial</option>
+                        <option value="Gestão da Produção Industrial">Cosméticos</option>
                     </select>
                     <label className='form-label' htmlhtmlFor="curso">Curso*</label>
                 </div>
